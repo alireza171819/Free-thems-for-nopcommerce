@@ -1,0 +1,284 @@
+﻿@*// *************************************************************************
+    // *                                                                       *
+    // * Bootswatch Theme Plugin for nopCommerce                               *
+    // * Copyright (c) Xcellence-IT. All Rights Reserved.                      *
+    // *                                                                       *
+    // *************************************************************************
+    // *                                                                       *
+    // * Email: info@nopaccelerate.com                                         *
+    // * Website: http://www.nopaccelerate.com                                 *
+    // *                                                                       *
+    // *************************************************************************
+    // *                                                                       *
+    // * This  software is furnished  under a license  and  may  be  used  and *
+    // * modified  only in  accordance with the terms of such license and with *
+    // * the  inclusion of the above  copyright notice.  This software or  any *
+    // * other copies thereof may not be provided or  otherwise made available *
+    // * to any  other  person.   No title to and ownership of the software is *
+    // * hereby transferred.                                                   *
+    // *                                                                       *
+    // * You may not reverse  engineer, decompile, defeat  license  encryption *
+    // * mechanisms  or  disassemble this software product or software product *
+    // * license.  Xcellence-IT may terminate this license if you don't comply *
+    // * with  any  of  the  terms and conditions set forth in  our  end  user *
+    // * license agreement (EULA).  In such event,  licensee  agrees to return *
+    // * licensor  or destroy  all copies of software  upon termination of the *
+    // * license.                                                              *
+    // *                                                                       *
+    // * Please see the  License file for the full End User License Agreement. *
+    // * The  complete license agreement is also available on  our  website at *
+    // * http://www.nopaccelerate.com/enterprise-license                       *
+    // *                                                                       *
+    // **************************************************************************@
+@{
+    Layout = "_ConfigurePlugin";
+}
+
+@using Nop.Plugin.XcellenceIt.BootswatchTheme.Models;
+@model Nop.Plugin.XcellenceIt.BootswatchTheme.Models.BootswatchThemeConfigurationModel
+@using Nop.Web.Framework.UI;
+@await Component.InvokeAsync("StoreScopeConfiguration")
+<!-- CSS files  -->
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/ace.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/theme-twilight.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/mode-css.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/worker-css.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/jquery-ace.min.js"></script>
+
+<!-- CSS Files-->
+<link href="~/Plugins/XcellenceIt.BootswatchTheme/Content/css/bootswatch_admin.css" rel="stylesheet" type="text/css" />
+@{
+    Html.SetActiveMenuItemSystemName("Nop.Plugin.XcellenceIt.BootswatchTheme");
+}
+
+<form asp-controller="BootswatchTheme" asp-action="Configure" method="post">
+    @Html.AntiForgeryToken()
+
+    @if (!Model.IsLicenseActive)
+    {
+        <div class="form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.Raw(@Model.RegistrationForm)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @await Component.InvokeAsync("StoreScopeConfiguration")
+
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.Raw(@Model.LicenseInformation)
+                </div>
+            </div>
+        </div>
+
+        @if (ViewBag.RefreshPage == true)
+        {
+            <script type="text/javascript">
+                try {window.opener.document.forms['@(ViewBag.formId)'].@(ViewBag.btnId).click();}
+                catch (e){}
+                window.opener.location.reload();
+                window.close();
+            </script>
+        }
+
+        <div class="raw clearfix">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!-- Plugin Enable/Disable-->
+                        <div class="form-group">
+                            <div class="content-header clearfix">
+                                <div class="pull-right">
+                                    <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="BootswatchThemeEnabled" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="BootswatchThemeEnabled" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="BootswatchThemeEnabled" />
+                            </div>
+                        </div>
+
+                        <!-- Color Swatch-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="ColorSwatch" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="ColorSwatch" />
+                            </div>
+                            <div class="col-md-9">
+                                <div class="config-wrapper">
+                                    @foreach (var colorSwatch in Model.BootswatchThemeList)
+                                    {
+                                        <div class="radio-inline @(Model.ColorSwatch == colorSwatch.Text ? "active" : "")">
+                                            <span class="ColorSwatch-before" style="border-color:#@colorSwatch.BorderColorCode"></span>
+                                            <input value="@colorSwatch.Text" name="ColorSwatch" id="ColorSwatch-@colorSwatch.PrimaryColorCode" type="radio" checked='@(Model.ColorSwatch == colorSwatch.Text ? true : false)'>
+                                            <label for="ColorSwatch-@colorSwatch.PrimaryColorCode" class="ColorSwatch-color" style="background-color: #@colorSwatch.PrimaryColorCode;">
+                                            </label>
+                                            <label for="ColorSwatch-@colorSwatch.PrimaryColorCode">
+                                                @colorSwatch.Text
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <script>
+                                    $('.radio-inline').click(function () {
+                                        $('.radio-inline').removeClass('active');
+                                        $(this).addClass('active').find('input').prop('checked', true)
+                                    });
+                                </script>
+                            </div>
+                        </div>
+
+                        <!-- Meta tag-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-label asp-for="MetaTags" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-textarea asp-for="MetaTags" />
+                            </div>
+                        </div>
+
+                        <!-- Remove Copy Right/ Power by -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="RemoveCopyRight" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="RemoveCopyRight" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="RemoveCopyRight" />
+                            </div>
+                        </div>
+
+                        <!-- Remove Copy Designed by -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="RemoveThemeBy" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="RemoveThemeBy" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="RemoveThemeBy" />
+                            </div>
+                        </div>
+
+                        <!-- Logo -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="LogoPictureId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="LogoPictureId" />
+                            </div>
+                            <div class="col-md-9" id="logo-block">
+                                <nop-editor asp-for="LogoPictureId" />
+                            </div>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="NewsEnabled" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="NewsEnabled" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="NewsEnabled" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="GooglePlusLink" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="GooglePlusLink" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="GooglePlusLink" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="YoutubeLink" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="YoutubeLink" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="YoutubeLink" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="FacebookLink" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="FacebookLink" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="FacebookLink" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="TwitterLink" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="TwitterLink" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="TwitterLink" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="pinterestUrl" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="pinterestUrl" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="pinterestUrl" />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="instagramUrl" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="instagramUrl" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="instagramUrl" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="vimeoUrl" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="vimeoUrl" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-editor asp-for="vimeoUrl" />
+                            </div>
+                        </div>
+
+                        <!-- CSS Editor-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                <nop-override-store-checkbox asp-for="BootswatchTheme_OverrideForStore" asp-input="CustomCss" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                                <nop-label asp-for="CustomCss" />
+                            </div>
+                            <div class="col-md-9">
+                                <nop-textarea asp-for="CustomCss" class="custom-css-area" />
+                                <br />
+                                <label for="instagramUrl" title="">@T("Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.CustomCss.Notes")</label>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('.custom-css-area').ace({ theme: 'twilight', lang: 'css', height: '200px', mode: 'css' })
+                        </script>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</form>

@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_ColumnsOne";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+}
+<div class="page home-page">
+    <div class="page-body">
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageTop })
+        <div class="container">
+            @await Component.InvokeAsync("TopicBlock", new { systemName = "HomepageText" })
+            <div class="wow fadeInUp animated" style="animation-delay: 100ms;">
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeCategories })
+                @await Component.InvokeAsync("HomepageCategories")
+            </div>
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeProducts })
+            <div class="featured-produt">
+                @await Component.InvokeAsync("HomepageProducts")
+            </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeBestSellers })
+        @await Component.InvokeAsync("HomepageBestSellers")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforeNews })
+        @await Component.InvokeAsync("HomepageNews")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBeforePoll })
+        @await Component.InvokeAsync("HomepagePolls")
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomepageBottom })
+        </div>
+    </div>
+</div>
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $("#brandslider").owlCarousel({
+            autoPlay: 3000, //Set AutoPlay to 3 seconds
+            items: 5,
+            itemsDesktop: [1199, 3],
+            itemsDesktopSmall: [979, 3],
+            navigation: true,
+            pagination: false,
+        });
+        $("#instragram-slider").owlCarousel({
+            autoPlay: 3000, //Set AutoPlay to 3 seconds
+            items: 5,
+            itemsDesktop: [1199, 3],
+            itemsDesktopSmall: [979, 3],
+            navigation: true,
+            pagination: false,
+        });
+    });
+
+</script>

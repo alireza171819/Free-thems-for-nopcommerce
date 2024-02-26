@@ -1,0 +1,16 @@
+﻿<div class="header">
+    @await Component.InvokeAsync("Widget", new { widgetZone = "header"})
+    <div class="header-search">
+        <div class="search-box">
+            @await Component.InvokeAsync("SearchBox")
+        </div>
+    </div>
+    <div class="header-logo">
+        @await Component.InvokeAsync("Logo")    
+    </div>
+    <div class="header-links-wrapper">
+        @await Component.InvokeAsync("HeaderLinks")
+        @await Component.InvokeAsync("FlyoutShoppingCart")
+    </div>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,34 @@
+﻿<div class="header">
+    <div class="mobile-header">@await Component.InvokeAsync("HeaderLinks")</div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderBefore })
+    <div class="header-upper">
+        <div class="container">
+        <div class="header-selectors-wrapper">
+            @await Component.InvokeAsync("TaxTypeSelector")
+            @await Component.InvokeAsync("CurrencySelector")
+            @await Component.InvokeAsync("LanguageSelector")
+            @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderSelectors })
+        </div>
+         <div class="search-box store-search-box">
+            <a class="searchclick"></a>
+            @await Component.InvokeAsync("SearchBox")
+        </div>
+    </div>
+    </div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderMiddle })
+    <div class="header-lower">
+     <div class="container">
+        <div class="header-logo">
+            @await Component.InvokeAsync("Logo")
+        </div>
+        <div class="header-right">
+            <div class="header-links-wrapper">
+                @await Component.InvokeAsync("HeaderLinks")
+                @await Component.InvokeAsync("FlyoutShoppingCart")
+            </div>    
+        </div>
+     </div>
+    </div>
+    <div class="mobilesearch">@await Component.InvokeAsync("SearchBox")</div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderAfter })
+</div>

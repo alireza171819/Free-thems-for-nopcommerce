@@ -1,0 +1,102 @@
+﻿@model SocialModel
+@inject PhoenixThemeSettings phoenixSettings
+
+<ul class="networks">
+    @if (!string.IsNullOrEmpty(Model.FacebookLink))
+    {
+        <li class="facebook">
+            <a href="@Model.FacebookLink" target="_blank">
+                <span class="bs-facebook"></span>
+            </a>
+        </li>
+    }
+    else
+    {
+        <li class="pintrest">
+            <a href="@phoenixSettings.PinterestURL" target="_blank">
+                <span class="bs-pintrest"></span>
+            </a>
+        </li>
+    }
+    @if (!string.IsNullOrEmpty(Model.TwitterLink))
+    {
+        <li class="twitter">
+            <a href="@Model.TwitterLink" target="_blank">
+                <span class="bs-twitter"></span>
+            </a>
+        </li>
+    }
+    else
+    {
+         <li class="vimeo">
+            <a href="@phoenixSettings.VimeoURL" target="_blank">
+                <span class="bs-vimeo"></span>
+            </a>
+        </li>
+    }
+    @if (Model.NewsEnabled)
+    {
+        <li class="rss">
+            <a href="@Url.RouteUrl("NewsRSS", new {languageId = Model.WorkingLanguageId})">
+                <span class="bs-rss"></span>
+            </a>
+        </li>
+    }
+    else
+    {
+         <li class="instagram">
+            <a href="@phoenixSettings.InstagramURL" target="_blank">
+                <span class="bs-instagram"></span>
+            </a>
+        </li>
+    }
+    @if (!string.IsNullOrEmpty(Model.YoutubeLink))
+    {
+        <li class="youtube">
+            <a href="@Model.YoutubeLink" target="_blank">
+                <span class="bs-youtube"></span>
+            </a>
+        </li>
+    }
+    else
+    {
+         <li class="linkedin">
+            <a href="@phoenixSettings.LinkedInURL" target="_blank">
+                <span class="bs-linkedin"></span>
+            </a>
+        </li>
+    }
+   @* @if (!string.IsNullOrEmpty(phoenixSettings.PinterestURL))
+    {
+        <li class="pintrest">
+            <a href="@phoenixSettings.PinterestURL" target="_blank">
+                <span class="bs-pintrest"></span>
+            </a>
+        </li>
+    }*@
+   @* @if (!string.IsNullOrEmpty(phoenixSettings.VimeoURL))
+    {
+        <li class="vimeo">
+            <a href="@phoenixSettings.VimeoURL" target="_blank">
+                <span class="bs-vimeo"></span>
+            </a>
+        </li>
+    }*@
+   @* @if (!string.IsNullOrEmpty(phoenixSettings.InstagramURL))
+    {
+        <li class="instagram">
+            <a href="@phoenixSettings.InstagramURL" target="_blank">
+                <span class="bs-instagram"></span>
+            </a>
+        </li>
+    }*@
+   @* @if (!string.IsNullOrEmpty(phoenixSettings.LinkedInURL))
+    {
+        <li class="linkedin">
+            <a href="@phoenixSettings.LinkedInURL" target="_blank">
+                <span class="bs-linkedin"></span>
+            </a>
+        </li>
+    }*@
+
+</ul>

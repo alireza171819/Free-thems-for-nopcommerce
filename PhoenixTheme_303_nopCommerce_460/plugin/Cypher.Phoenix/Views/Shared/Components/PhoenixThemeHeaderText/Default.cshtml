@@ -1,0 +1,22 @@
+﻿@model PhoenixHeaderTextModel
+@inject IWorkContext workContext
+
+    @Html.Raw(Model.HomePageHeaderText)
+<style>
+    .topmenu-right {
+        width: 50% ;
+    }
+
+</style>
+<script asp-location="Footer">
+    $(".topbar-slider").slick({
+        infinite: true,
+        autoplay: true,
+        dots: false,
+        arrows: false,
+        slidesToShow: 1,
+        slidesToScroll: -1,
+        rtl: @((await workContext.GetWorkingLanguageAsync()).Rtl.ToString().ToLower()),
+        slidesToScroll: 1,
+    });
+</script>

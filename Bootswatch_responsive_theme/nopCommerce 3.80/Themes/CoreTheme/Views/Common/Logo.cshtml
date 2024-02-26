@@ -1,0 +1,52 @@
+﻿@model LogoModel
+@using Nop.Web.Models.Common;
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Configuration
+@using Nop.Core;
+@using Nop.Core.Plugins
+@using Nop.Services.Media
+@using Nop.Web.Framework.Themes
+@{
+    var _pluginFinder = EngineContext.Current.Resolve<IPluginFinder>();
+    bool isBswatchEnable = false;
+    int logoPictureId = 0;
+    var logo = "";
+    string themeLogoPath = "";
+
+    //find Plugin
+    PluginDescriptor bootswatchPlugin = _pluginFinder.GetPluginDescriptorBySystemName("Nop.Plugin.XcellenceIt.BootswatchTheme");
+
+    //check plugin is installed or not
+    if (bootswatchPlugin != null)
+    {
+        if (bootswatchPlugin.Installed)
+        {
+            var storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+            Boolean.TryParse(EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("bootswatchthemesetting.bootswatchthemeenabled", String.Empty, storeId, true), out isBswatchEnable);
+            if (isBswatchEnable)
+            {
+                int.TryParse(EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("storeinformationsettings.logopictureid", String.Empty, storeId, true), out logoPictureId);
+                if (logoPictureId > 0)
+                {
+                    var _pictureService = EngineContext.Current.Resolve<IPictureService>();
+                    logo = _pictureService.GetPictureUrl(logoPictureId, showDefaultPicture: false);
+                }
+            }
+            else
+            {
+                var currentThemeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+                themeLogoPath = "/Themes/" + currentThemeName + "/Content/images/logo.png";
+            }
+        }
+    }
+}
+<a href="@Url.RouteUrl("HomePage")" class="logo-anchor">
+    @if (isBswatchEnable)
+    {
+        <img title="" alt="@Model.StoreName" src='@(!string.IsNullOrWhiteSpace(logo) ? logo : Model.LogoPath)' class="logo-image">
+    }
+    else
+    {
+        <img title="" alt="@Model.StoreName" src='@themeLogoPath' class="logo-image">
+    }
+</a>

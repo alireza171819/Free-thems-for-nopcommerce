@@ -1,0 +1,14 @@
+﻿{
+  "Group": "nopCypher",
+  "FriendlyName": "Theme Phoenix",
+  "SupportedVersions": ["4.60"],
+  "Author": "nopCypher",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Cypher.Theme.Phoenix.dll",
+  "Description": "",
+  "LimitedToStores": [],
+  "LimitedToCustomerRoles": [],
+  "DependsOnSystemNames": [],
+  "SystemName": "Cypher.Phoenix",
+  "Version": "3.0.3"
+}

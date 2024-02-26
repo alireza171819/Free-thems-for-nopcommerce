@@ -1,0 +1,129 @@
+﻿<Language Name="English" IsDefault="true" IsRightToLeft="false">
+
+  <!-- Navigation-->
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Navigation.Root.BootswatchTheme">
+    <Value>Bootswatch Theme</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Navigation.child.Configuration">
+    <Value>Configuration</Value>
+  </LocaleResource>
+
+  <!--Plugin Configuration Page-->
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.BootswatchThemeEnabled">
+    <Value>Enabled</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.BootswatchThemeEnabled.Hint">
+    <Value>Unchecked if you want Disable plugin</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.EnableDropPlugininUninstall">
+    <Value>Drop Plugin in Uninstall</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.EnableDropPlugininUninstall.Hint">
+    <Value>Checked if you want delete Drop Plugin's setting in Uninstall time</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.SwatchColor">
+    <Value>Swatch Color</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.SwatchColor.Hint">
+    <Value>Select Swatch color for theme color</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.MetaTags">
+    <Value>Meta Tags</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.MetaTags.Hint">
+    <Value>Write Meta Tags for improve SEO optimize</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.RemoveCopyRight">
+    <Value>Remove CopyRight</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.RemoveCopyRight.Hint">
+    <Value>Checked for remove Powered by NopCommerce text</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.RemoveThemeBy">
+    <Value>Remove ThemeBy</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.RemoveThemeBy.Hint">
+    <Value>Checked for remove Theme by nopAccelerate</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.Logo">
+    <Value>Logo</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.Logo.Hint">
+    <Value>Upload your store logo. If not uploaded, then the default one will be used.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.NewsEnabled">
+    <Value>News enabled</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.NewsEnabled.Hint">
+    <Value>Check to enable the news in your store.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.FacebookLink">
+    <Value>Facebook page URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.FacebookLink.Hint">
+    <Value>Specify your Facebook page URL. Leave empty if you have no such page.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.TwitterLink">
+    <Value>Twitter page URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.TwitterLink.Hint">
+    <Value>Specify your Twitter account URL. Leave empty if you have no such page.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.YoutubeLink">
+    <Value>YouTube Channel URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.YoutubeLink.Hint">
+    <Value>Specify your YouTube Channel URL. Leave empty if you have no such page.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.GooglePlusLink">
+    <Value>Google+ page URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.GooglePlusLink.Hint">
+    <Value>Specify your Google+ page URL. Leave empty if you have no such page.</Value>
+  </LocaleResource>
+
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.pinterestUrl">
+    <Value>Pinterest URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.pinterestUrl.Hint">
+    <Value>Specify your Pinterest account URL. Leave empty if you have no such page.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.vimeoUrl">
+    <Value>Vimeo URL</Value>                                                    
+  </LocaleResource>                                                    
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.vimeoUrl.Hint">
+    <Value>Specify your Vimeo account URL. Leave empty if you have no such page.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.instagramUrl">
+    <Value>Instagram URL</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.instagramUrl.Hint">
+    <Value>Specify your Instagram account URL. Leave empty if you have no such page.</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.CustomCss">
+    <Value>Custom CSS</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.CustomCss.Hint">
+    <Value>Write Custom CSS for improve theme design</Value>
+  </LocaleResource>
+  <LocaleResource Name="Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.CustomCss.Notes">
+    <Value>Custom css editor supports only 2000 characters</Value>
+  </LocaleResource>
+
+  <!-- Footer Social media-->
+  <LocaleResource Name="Footer.FollowUs.PinteRest">
+    <Value>Pinterest</Value>
+  </LocaleResource>
+  <LocaleResource Name="Footer.FollowUs.Instagram">
+    <Value>Instagram</Value>
+  </LocaleResource>
+  <LocaleResource Name="Footer.FollowUs.Vimeo">
+    <Value>Vimeo</Value>
+  </LocaleResource>
+
+</Language>

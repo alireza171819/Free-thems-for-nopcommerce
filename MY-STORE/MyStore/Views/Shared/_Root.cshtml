@@ -1,0 +1,84 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+@Html.Action("AdminHeaderLinks", "Common")
+ 
+<div class="master-wrapper-page">
+    @Html.Partial("Header")
+    <script type="text/javascript">
+        AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+    </script>
+    <div class="header-menu">
+        @Html.Action("TopMenu", "Catalog")
+    </div>
+    <div class="master-wrapper-content">
+        @Html.Widget("content_before")
+
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb") 
+        }
+        <div class="master-column-wrapper">
+            @RenderBody()
+        </div>
+        @Html.Widget("content_after")
+    </div>
+    @Html.Action("Footer", "Common")
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")
+
+<!-------------------------------------------------------------------------------------------------------->
+
+<!-- COLOR PICKER -->
+<!-- REMOVE COLOR PICKER CODE IF NOT NEEDED -->
+<div class="theme-color-picker">
+	<div id="configure-button" class="configure-button" data-expanded="false"><a href="#"><i class="fa fa-cog fa-2x"></i></a></div>
+	<div class="color-options" id="color-options">
+		<h3>Preset Color</h3>
+		<div class="options-choosing-palette">
+			<ul>
+				<li><a href="#" rel="Purple" style="background-color:#9365B8" title="Purple" class="styleswitch Purple-picker"></a></li>
+				<li><a href="#" rel="WinRed" style="background-color:#E74C3C" title="Windows8 Red" class="styleswitch red-picker"></a></li>
+				<li><a href="#" rel="Green" style="background-color:#46C688" title="Green" class="styleswitch green-picker"></a></li>
+			</ul>
+			<ul>
+				<li><a href="#" rel="orange" style="background-color:#FBA026" title="Orange" class="styleswitch orange-picker"></a></li>
+				<li><a href="#" rel="default" style="background-color:#0851A8" title="Default Color" class="styleswitch default-picker"></a></li>
+				<li><a href="#" rel="Blue" style="background-color:#00C9F2" title="Blue" class="styleswitch blue-picker"></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function(){
+		$.stylesheetInit();
+		$('#toggler').bind('click',	function(e) {
+				$.stylesheetToggle();
+				return false;
+			}
+		);
+		$('.styleswitch').bind('click',	function(e) {
+				$.stylesheetSwitch(this.getAttribute('rel'));
+				return false;
+			}
+		);
+		$("#configure-button").on("click", function (e) {
+			e.preventDefault();
+			if ($(this).data("expanded") == "true") {
+				$("#color-options").css({ left: '-200px' });
+				$("#configure-button").css({ left: '0px' });
+				$(this).data("expanded","false");
+			} else {
+				$("#color-options").css({ left: '0px' });
+				$("#configure-button").css({ left: '200px' });
+				$(this).data("expanded", "true");
+			}
+		});
+	});
+</script>
+<!-- END COLOR PICKER -->

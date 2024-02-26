@@ -1,0 +1,70 @@
+﻿@model Nop.Web.Models.Common.SocialModel
+@using Nop.Core.Infrastructure;
+@using Nop.Services.Configuration
+@using Nop.Services.Configuration
+@using Nop.Core;
+@using Nop.Core.Plugins
+@using Nop.Services.Media
+
+@{
+    var _pluginFinder = EngineContext.Current.Resolve<IPluginFinder>();
+    bool isBswatchEnable = false;
+    int storeId = 0;
+    string pinterestUrl = "";
+    string vimeoUrl = "";
+    string instagramUrl = "";
+    //find Plugin
+    PluginDescriptor bootswatchPlugin = _pluginFinder.GetPluginDescriptorBySystemName("Nop.Plugin.XcellenceIt.BootswatchTheme");
+
+    //check plugin is installed or not
+    if (bootswatchPlugin != null)
+    {
+        if (bootswatchPlugin.Installed)
+        {
+            storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+            Boolean.TryParse(EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("bootswatchthemesetting.bootswatchthemeenabled", String.Empty, storeId, true), out isBswatchEnable);
+            if (isBswatchEnable)
+            {
+                storeId = EngineContext.Current.Resolve<IStoreContext>().CurrentStore.Id;
+                pinterestUrl = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("bootswatchthemesetting.pinteresturl", String.Empty, storeId, true);
+                vimeoUrl = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("bootswatchthemesetting.vimeourl", String.Empty, storeId, true);
+                instagramUrl = EngineContext.Current.Resolve<ISettingService>().GetSettingByKey("bootswatchthemesetting.instagramurl", String.Empty, storeId, true);
+            }
+        }
+    }
+}
+
+<ul class="nav nav-list social-icons">
+    @if (!string.IsNullOrEmpty(Model.FacebookLink))
+    {
+        <li class="facebook"><i class="fa fa-facebook"></i><a href="@Model.FacebookLink" target="_blank">@T("Footer.FollowUs.Facebook")</a></li>
+    }
+    @if (!string.IsNullOrEmpty(Model.TwitterLink))
+    {
+        <li class="twitter"><i class="fa fa-twitter"></i><a href="@Model.TwitterLink" target="_blank">@T("Footer.FollowUs.Twitter")</a></li>
+    }
+    @if (Model.NewsEnabled)
+    {
+        <li class="rss"><i class="fa  fa-rss"></i><a href="@Url.RouteUrl("NewsRSS", new { languageId = Model.WorkingLanguageId })">@T("Footer.FollowUs.RSS")</a></li>
+    }
+    @if (!string.IsNullOrEmpty(Model.YoutubeLink))
+    {
+        <li class="youtube"><i class="fa  fa-youtube"></i><a href="@Model.YoutubeLink" target="_blank">@T("Footer.FollowUs.Youtube")</a></li>
+    }
+    @if (!string.IsNullOrEmpty(Model.GooglePlusLink))
+    {
+        <li class="google-plus"><i class="fa fa-google-plus"></i><a href="@Model.GooglePlusLink" target="_blank">@T("Footer.FollowUs.GooglePlus")</a></li>
+    }
+    @if (!String.IsNullOrEmpty(pinterestUrl))
+    {
+        <li><i class="fa fa-pinterest-p" aria-hidden="true"></i><a target="_blank" class="pinterest" href="@pinterestUrl">@T("Footer.FollowUs.PinteRest")</a></li>
+    }
+    @if (!String.IsNullOrEmpty(vimeoUrl))
+    {
+        <li><i class="fa fa-vimeo" aria-hidden="true"></i> <a target="_blank" class="vimeo" href="@vimeoUrl">@T("Footer.FollowUs.Vimeo")</a></li>
+    }
+    @if (!String.IsNullOrEmpty(instagramUrl))
+    {
+        <li><i class="fa fa-instagram" aria-hidden="true"></i> <a target="_blank" class="instagram" href="@instagramUrl">@T("Footer.FollowUs.Instagram")</a></li>
+    }
+</ul>

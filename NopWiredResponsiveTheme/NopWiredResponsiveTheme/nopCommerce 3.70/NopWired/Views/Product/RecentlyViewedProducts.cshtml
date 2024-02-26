@@ -1,0 +1,38 @@
+﻿@model IList<ProductOverviewModel>
+@{
+    Layout = "~/Views/Shared/_ColumnsThree.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.RecentlyViewedProducts").Text);
+}
+@using Nop.Web.Models.Catalog;
+<div class="page recently-viewed-products-page">
+    <div class="page-title">
+        <h1>@T("Products.RecentlyViewedProducts")</h1>
+    </div>
+    <div class="page-body">
+        @if (Model.Count > 0)
+        {
+            <div class="product-grid">
+               @for (var i = 0; i < Model.Count(); i++)
+               {
+                   var product = Model[i];
+                   string lastitem = "";
+
+                   if (i % 2 == 0)
+                   {
+                       lastitem = "odd";
+                   }
+                   else
+                   {
+                       lastitem = "even";
+                   }
+
+                <div class="item-box @lastitem">
+                    @Html.Partial("_ProductBox", product)
+                </div>
+               }
+            </div>
+        }
+    </div>
+</div>

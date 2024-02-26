@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "_Root.Head";
+}
+@await Component.InvokeAsync("Widget", new { widgetZone = "body_start_html_tag_after" })
+@await Html.PartialAsync("_Notifications")
+<div class="master-wrapper-page container">
+    @await Html.PartialAsync("_JavaScriptDisabledWarning")
+    @await Html.PartialAsync("_OldInternetExplorerWarning")   
+<div class="master-wrapper-content">
+        <script type="text/javascript" asp-location="Footer">
+            AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+        </script>
+        @await Html.PartialAsync("_Header")
+        <div class="header-bottom">
+            <div class="header-menu">
+                @await Component.InvokeAsync("TopMenu")
+             </div>
+        </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = "content_before" })
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        @*ajax loading window*@
+        <div class="ajax-loading-block-window" style="display: none">
+            <div class="loading-image">
+            </div>
+        </div>
+        <div class="content">
+            <div class="row">
+                @RenderBody()
+            </div>
+       </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = "content_after" })
+        @await Component.InvokeAsync("EuCookieLaw")
+        @await Component.InvokeAsync("Footer")
+    </div>
+</div>
+@await Component.InvokeAsync("Widget", new { widgetZone = "body_end_html_tag_before" })
+

@@ -1,0 +1,40 @@
+﻿@using Nop.Core
+@using Nop.Services.Helpers
+@using Nop.Web.Framework.UI
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@inject IUserAgentHelper userAgentHelper
+@{
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+    var themeName = themeContext.WorkingThemeName;
+    var isIe8 = userAgentHelper.IsIe8();
+
+    //add browser specific CSS files
+
+    if (isIe8)
+    {
+        //Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/ie8.css");
+        //isIeEightOrLess = true;
+    }
+
+    //add main CSS file
+    if (supportRtl)
+    {
+        //RTL is not supported by Wristwear Theme
+        //Html.AppendCssFileParts("~/Themes/WristwearTheme/Content/styles.rtl.css");
+    }
+    else
+    {
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/wristwear-styles-responsive.css");
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/wristwear-styles.css");
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/font-awesome.min.css");
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/bootstrap.min.css");
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/owl.carousel.min.css");
+    }
+    if (isIe8)
+    {
+        Html.AddScriptParts(ResourceLocation.Footer, "~/lib/selectivizr.min.js");
+        Html.AddScriptParts(ResourceLocation.Footer, "~/lib/respond.min.js");
+    }
+}

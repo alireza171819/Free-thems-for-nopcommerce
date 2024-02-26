@@ -1,0 +1,89 @@
+﻿@model ApplyVendorModel
+@using Nop.Web.Models.Vendors;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.Vendors.Apply").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-apply-vendor-page");
+}
+<div class="page apply-vendor-page from-panel">
+    <div class="page-title panel-heading">
+        <h1>@T("PageTitle.Vendors.Apply")</h1>
+    </div>
+    <div class="page-body panel-body">
+        @Html.Action("TopicBlock", "Topic", new { systemName = "ApplyVendor" })
+        @Html.Widget("applyvendor_top")
+        @if (Model.DisableFormInput)
+        {
+            <div class="result alert alert-success">
+                @Model.Result
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm(null, null, FormMethod.Post, new RouteValueDictionary { { "enctype", "multipart/form-data" } }))
+            {
+                @Html.AntiForgeryToken()
+                var validationSummary = Html.ValidationSummary(true);
+                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="message-error">@validationSummary</div>
+                }
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label col-sm-4 col-md-4" })
+                        <div class="col-sm-5 col-md-5">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "name form-control", placeholder = T("Vendors.ApplyAccount.Name.Hint") })
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-sm-4 col-md-4" })
+                        <div class="col-sm-5 col-md-5">
+                            @Html.TextBoxFor(model => model.Email, new { @class = "email form-control", placeholder = T("Vendors.ApplyAccount.Email.Hint") })
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Description, new { @class = "control-label col-sm-4 col-md-4" })
+                        <div class="col-sm-5 col-md-5">
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control description", placeholder = T("Vendors.ApplyAccount.Email.Hint") })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.Label(T("Vendors.ApplyAccount.Picture").Text, new { @class = "control-label col-sm-4 col-md-4" })
+                        <div class="col-sm-5 col-md-5">
+                            <label class="btn btn-default">
+                                <input name="uploadedFile" type="file" />
+                            </label>
+                        </div>
+                    </div>
+                    @if (Model.DisplayCaptcha)
+                    {
+                        <div class="form-group">
+                            <div class="col-sm-offset-4 col-md-offset-4 col-md-8">
+                                <div class="captcha-box">
+                                    @Html.Raw(Html.GenerateCaptcha())
+                                </div>
+                            </div>
+                        </div>
+                    }
+                 </div>
+                    <div class="form-group">
+                        <div class="buttons col-sm-offset-4 col-md-offset-4 col-md-8">
+                            <input type="submit" name="send-email" class="btn btn-primary apply-vendor-button" value="@T("Vendors.ApplyAccount.Button")" />
+                        </div>
+                    </div>
+            }
+        }
+        @Html.Widget("applyvendor_bottom")
+    </div>
+</div>

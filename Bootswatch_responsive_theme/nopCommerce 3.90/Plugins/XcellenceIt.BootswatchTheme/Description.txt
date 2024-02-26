@@ -1,0 +1,8 @@
+﻿Group: NopAccelerate Theme
+FriendlyName: NopAccelerate Bootswatch Theme
+SystemName: Nop.Plugin.XcellenceIt.BootswatchTheme
+Version: 1.0.0
+SupportedVersions: 3.90
+Author: Xcellence-It
+DisplayOrder: 1
+FileName: Nop.Plugin.XcellenceIt.BootswatchTheme.dll

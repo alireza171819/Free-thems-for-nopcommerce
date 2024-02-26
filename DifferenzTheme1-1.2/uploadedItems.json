@@ -1,0 +1,14 @@
+﻿[ 
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.50",
+    "DirectoryPath": "DifferenzTheme-4.50/DifferenzTheme",
+    "SystemName": "DifferenzTheme"   
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.60",
+    "DirectoryPath": "DifferenzTheme-4.60/DifferenzTheme",
+    "SystemName": "DifferenzTheme"   
+  }
+]

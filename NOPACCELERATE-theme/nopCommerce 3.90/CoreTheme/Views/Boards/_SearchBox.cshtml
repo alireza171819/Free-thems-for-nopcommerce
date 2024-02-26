@@ -1,0 +1,16 @@
+﻿<div class="forum-search-box">
+    @using (Html.BeginRouteForm("Search", FormMethod.Get))
+    {
+        <div class="basic">
+            <div class="input-group">
+                <input type="text" class="search-box-text form-control" id="forums-small-searchterms" name="searchterms" placeholder="@T("Forum.SearchForumsTooltip")" />
+                <span class="input-group-btn">
+                    <input type="submit" value="" class="btn search-box-button" />
+                </span>
+            </div><!-- /input-group -->
+        </div>
+        <div class="advanced">
+            @Html.RouteLink(T("Forum.AdvancedSearch").Text, "Search", new { adv = true }, new { title = T("Forum.AdvancedSearch").Text })
+        </div>
+    }
+</div>

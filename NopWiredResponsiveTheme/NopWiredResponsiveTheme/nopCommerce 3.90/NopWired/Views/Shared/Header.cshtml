@@ -1,0 +1,11 @@
+﻿<div class="header">
+    @Html.Widget("header")
+    <div class="header-logo">
+        @Html.Action("Logo", "Common")
+    </div>
+    <div class="header-links-wrapper">
+        @Html.Widget("header_selectors")
+        @Html.Action("HeaderLinks", "Common")
+    </div>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,110 @@
+﻿<ColorSwatches Name="ColorSwatches" IsDefault="true" >
+
+  <ColorSwatch Name="default">
+    <PrimaryColorCode>222</PrimaryColorCode>
+    <BorderColorCode>337ab7</BorderColorCode>
+    <Value>Default</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="cerulean">
+    <PrimaryColorCode>04519b</PrimaryColorCode>
+    <BorderColorCode>54b4eb</BorderColorCode>
+    <Value>Cerulean</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Cosmo">
+    <PrimaryColorCode>2780e3</PrimaryColorCode>
+    <BorderColorCode>2780e3</BorderColorCode>
+    <Value>Cosmo</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Cyborg">
+    <PrimaryColorCode>222</PrimaryColorCode>
+    <BorderColorCode>2a9fd6</BorderColorCode>
+    <Value>Cyborg</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Darkly">
+    <PrimaryColorCode>00bc8c</PrimaryColorCode>
+    <BorderColorCode>375a7f</BorderColorCode>
+    <Value>Darkly</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Flatly">
+    <PrimaryColorCode>18bc9c</PrimaryColorCode>
+    <BorderColorCode>2c3e50</BorderColorCode>
+    <Value>Flatly</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Journal">
+    <PrimaryColorCode>eb6864</PrimaryColorCode>
+    <BorderColorCode>eb6864</BorderColorCode>
+    <Value>Journal</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Lumen">
+    <PrimaryColorCode>fff</PrimaryColorCode>
+    <BorderColorCode>158cba</BorderColorCode>
+    <Value>Lumen</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Paper">
+    <PrimaryColorCode>2196f3</PrimaryColorCode>
+    <BorderColorCode>2196f3</BorderColorCode>
+    <Value>Paper</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Readable">
+    <PrimaryColorCode>fff</PrimaryColorCode>
+    <BorderColorCode>2196f3</BorderColorCode>
+    <Value>Readable</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Sandstone">
+    <PrimaryColorCode>93c54b</PrimaryColorCode>
+    <BorderColorCode>325d88</BorderColorCode>
+    <Value>Sandstone</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Simplex">
+    <PrimaryColorCode>d9230f</PrimaryColorCode>
+    <BorderColorCode>d9230f</BorderColorCode>
+    <Value>Simplex</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Slate">
+    <PrimaryColorCode>8a9196</PrimaryColorCode>
+    <BorderColorCode>7a8288</BorderColorCode>
+    <Value>Slate</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Solar">
+    <PrimaryColorCode>b58900</PrimaryColorCode>
+    <BorderColorCode>2aa198</BorderColorCode>
+    <Value>Solar</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Spacelab">
+    <PrimaryColorCode>6d94bf</PrimaryColorCode>
+    <BorderColorCode>3399f3</BorderColorCode>
+    <Value>Spacelab</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Superhero">
+    <PrimaryColorCode>df691a</PrimaryColorCode>
+    <BorderColorCode>df691a</BorderColorCode>
+    <Value>Superhero</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="United">
+    <PrimaryColorCode>772953</PrimaryColorCode>
+    <BorderColorCode>e95420</BorderColorCode>
+    <Value>United</Value>
+  </ColorSwatch>
+
+  <ColorSwatch Name="Yeti">
+    <PrimaryColorCode>008cba</PrimaryColorCode>
+    <BorderColorCode>008cba</BorderColorCode>
+    <Value>Yeti</Value>
+  </ColorSwatch>
+</ColorSwatches>

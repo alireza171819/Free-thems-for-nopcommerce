@@ -1,0 +1,88 @@
+﻿@model NewsletterBoxModel
+@using Nop.Web.Models.Newsletter;
+<div>
+    <div class="title">
+        <strong>@T("Newsletter.Title")</strong>
+    </div>
+    <p>@T("Newsletter.Subscribe"):</p>
+    <div class="listbox">
+        <div id="newsletter-subscribe-block" class="newsletter-subscribe-block">
+            <div class="newsletter-email">
+                @Html.TextBoxFor(x => x.NewsletterEmail, new { id = "newsletter-email" })
+                @Html.ValidationMessageFor(x => x.NewsletterEmail)
+            </div>
+            <div class="buttons">
+                <input type="button" value="@T("Newsletter.Button")" id="newsletter-subscribe-button" class="button" />
+            </div>
+        </div>
+        @if (Model.AllowToUnsubscribe)
+        {
+            <div class="options">
+                <span class="subscribe">
+                    <input id="newsletter_subscribe" type="radio" value="newsletter_subscribe" name="newsletter_block" checked="checked" />
+                    <label for="newsletter_subscribe">@T("Newsletter.Options.Subscribe")</label>
+                </span>
+                <span class="unsubscribe">
+                    <input id="newsletter_unsubscribe" type="radio" value="newsletter_unsubscribe" name="newsletter_block" />
+                    <label for="newsletter_unsubscribe">@T("Newsletter.Options.Unsubscribe")</label>
+                </span>
+            </div>
+        }
+        <div><span id="subscribe-loading-progress" style="display: none;" class="please-wait">@T("Common.Wait...")</span></div>
+        <div id="newsletter-result-block" class="newsletter-result-block">
+        </div>
+    </div>
+    <script type="text/javascript">
+    function newsletter_subscribe(subscribe) {
+        var subscribeProgress = $("#subscribe-loading-progress");
+        subscribeProgress.show();
+        var postData = {
+            subscribe: subscribe,
+            email: $("#newsletter-email").val()
+        };
+        $.ajax({
+            cache: false,
+            type: "POST",
+            url: "@(Url.RouteUrl("SubscribeNewsletter"))",
+            data: postData,
+            success: function (data) {
+                subscribeProgress.hide();
+                $("#newsletter-result-block").html(data.Result);
+                if (data.Success) {
+                    $('#newsletter-subscribe-block').hide();
+                    $('#newsletter-result-block').show();
+                } else {
+                    $('#newsletter-result-block').fadeIn("slow").delay(2000).fadeOut("slow");
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert('Failed to subscribe.');
+                subscribeProgress.hide();
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        $('#newsletter-subscribe-button').click(function () {
+            @if (Model.AllowToUnsubscribe)
+                {
+                    <text>if ($('#newsletter_subscribe').is(':checked')) {
+                newsletter_subscribe('true');
+            } else {
+                newsletter_subscribe('false');
+            }</text>
+                }
+                else
+                {
+                    <text>newsletter_subscribe('true');</text>
+                }
+        });
+        $("#newsletter-email").keydown(function (event) {
+            if (event.keyCode == 13) {
+                $("#newsletter-subscribe-button").click();
+                return false;
+            }
+        });
+    });
+    </script>
+</div>

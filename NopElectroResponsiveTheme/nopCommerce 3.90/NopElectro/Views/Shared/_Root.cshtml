@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+@{
+    var isOnePageCheckout = Request.Url.AbsolutePath == "/onepagecheckout" ? true : false;
+}
+<div class="master-wrapper-page" id="@(isOnePageCheckout ? "secure-page" : "")">
+    <div class="master-wrapper-page-inner">
+        @Html.Action("AdminHeaderLinks", "Common")
+        @Html.Partial("Header")
+        <script type="text/javascript">
+            AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+
+            $(document).ready(function () {
+                //Product Box Title
+                var productTitle = $('.product-grid .item-box .product-title');
+
+                productTitle.each(function () {
+                    $(this).dotdotdot({
+                        watch: "window"
+                    });
+                });
+            });
+        </script>
+        <div class="header-menu">
+            @Html.Action("TopMenu", "Catalog")
+        </div>
+        <div class="master-wrapper-content">
+            @Html.Widget("content_before")
+
+            @if (IsSectionDefined("Breadcrumb"))
+            {
+                @RenderSection("Breadcrumb")
+            }
+            <div class="master-column-wrapper">
+                @RenderBody()
+            </div>
+            @Html.Widget("content_after")
+        </div>
+        @Html.Action("Footer", "Common")
+    </div>
+</div>
+
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

@@ -1,0 +1,148 @@
+﻿@model TopMenuModel
+<nav class="navbar navbar-inverse top-menu" data-spy="affix" data-offset-top="197">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            @await Component.InvokeAsync("Logo")
+        </div>
+        <ul class="nav navbar-nav">
+            @await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_before" })
+            @if (Model.DisplayHomePageMenuItem)
+            {
+                <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+            }
+            @{
+                var rootCategories = Model.Categories.Where(x => x.IncludeInTopMenu).ToList();
+            }
+            @foreach (var category in rootCategories)
+            {
+                var categoryLineModel = new TopMenuModel.CategoryLineModel
+                {
+                    Category = category
+                };
+                @await Html.PartialAsync("_CategoryLine.TopMenu", categoryLineModel)
+            }
+            @foreach (var topic in Model.Topics)
+            {
+                <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+            }
+            @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
+            {
+                <li><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+            }
+            @if (Model.DisplayProductSearchMenuItem)
+            {
+                <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+            }
+            @if (Model.DisplayCustomerInfoMenuItem)
+            {
+                <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+            }
+            @if (Model.BlogEnabled && Model.DisplayBlogMenuItem)
+            {
+                <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+            }
+            @if (Model.ForumEnabled && Model.DisplayForumsMenuItem)
+            {
+                <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+            }
+            @if (Model.DisplayContactUsMenuItem)
+            {
+                <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+            }
+            @await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_after" })
+
+        </ul>
+        <form class="navbar-form navbar-right hidden-md" asp-route="ProductSearch" method="get" id="menuSearchbox">
+            <div class="input-group input-group-sm">
+                <input type="text" class="form-control" placeholder="@T("Search.SearchBox.Tooltip")" aria-describedby="basic-addon2" id="small-searchphrase">
+                <span class="input-group-addon" id="basic-addon2">@T("Search.Button")</span>
+            </div>
+        </form>
+        <script type="text/javascript" asp-location="Footer">
+            $(document).ready(function() {
+                $('#small-searchphrase').autocomplete({
+                        delay: 500,
+                        minLength: 3,
+                        source: '@(Url.RouteUrl("ProductSearchAutoComplete"))',
+                        appendTo: '#menuSearchbox',
+                        select: function(event, ui) {
+                            $("#small-searchphrase").val(ui.item.label);
+                            setLocation(ui.item.producturl);
+                            return false;
+                        }
+                    })
+                    .data("ui-autocomplete")._renderItem = function(ul, item) {
+                        var t = item.label;
+                        //html encode
+                        t = htmlEncode(t);
+                        return $("<li></li>")
+                            .data("item.autocomplete", item)
+                            .append("<a><span>" + t + "</span></a>")
+                            .appendTo(ul);
+                    };
+            });
+        </script>
+    </div>
+
+</nav>
+@{
+    var rootCategoriesResponsive = Model.Categories.ToList();
+    //name it "Categories" if we have only categories. Otherwise, "Menu"
+    var responsiveMenuTitle = Model.HasOnlyCategories ? T("Categories") : T("Menu");
+    <div class="menu-toggle">@responsiveMenuTitle</div>
+    <ul class="top-menu mobile">
+        @await Component.InvokeAsync("Widget", new { widgetZone = "mob_header_menu_before" })
+        @if (Model.DisplayHomePageMenuItem)
+            {
+            <li><a href="@Url.RouteUrl("HomePage")">@T("HomePage")</a></li>
+        }
+        @foreach (var category in rootCategoriesResponsive)
+            {
+                var categoryLineModel = new TopMenuModel.CategoryLineModel
+                {
+                    Category = category,
+                    ResponsiveMobileMenu = true
+                };
+            @await Html.PartialAsync("_CategoryLine.TopMenu", categoryLineModel)
+        }
+        @foreach (var topic in Model.Topics)
+            {
+            <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+        }
+        @if (Model.NewProductsEnabled && Model.DisplayNewProductsMenuItem)
+            {
+            <li><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+        }
+        @if (Model.DisplayProductSearchMenuItem)
+            {
+            <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a></li>
+        }
+        @if (Model.DisplayCustomerInfoMenuItem)
+            {
+            <li><a href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</a></li>
+        }
+        @if (Model.BlogEnabled && Model.DisplayBlogMenuItem)
+            {
+            <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+        }
+        @if (Model.ForumEnabled && Model.DisplayForumsMenuItem)
+            {
+            <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+        }
+        @if (Model.DisplayContactUsMenuItem)
+            {
+            <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+        }
+        @await Component.InvokeAsync("Widget", new { widgetZone = "mob_header_menu_after" })
+    </ul>
+        <script type="text/javascript" asp-location="Footer">
+            $(document).ready(function () {
+                $('.menu-toggle').click(function () {
+                    $(this).siblings('.top-menu.mobile').slideToggle('slow');
+                });
+                $('.top-menu.mobile .sublist-toggle').click(function () {
+                    $(this).siblings('.sublist').slideToggle('slow');
+                });
+            });
+        </script>
+}

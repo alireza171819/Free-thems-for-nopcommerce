@@ -1,0 +1,13 @@
+﻿@using Nop.Core.Infrastructure
+@using Nop.Services.Helpers
+@{
+    var dateTimeHelper = EngineContext.Current.Resolve<IDateTimeHelper>();
+}
+<div class="forums-header">
+    <div class="col-md-6 forum-search">
+        @Html.Partial("_SearchBox")
+    </div>
+    <div class="current-time col-md-6">
+        @dateTimeHelper.ConvertToUserTime(DateTime.UtcNow).ToString("F")
+    </div>
+</div>

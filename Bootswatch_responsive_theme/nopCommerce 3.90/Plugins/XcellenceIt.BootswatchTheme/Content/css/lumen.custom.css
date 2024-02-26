@@ -1,0 +1,142 @@
+/*!
+*//*
+   Lumen Theme 1.0.0
+ * Based on Bootstrap
+*//*! */
+
+
+a:focus{
+    outline:none;
+}
+.returning-wrapper .form-horizontal .checkbox{
+    line-height:23px;
+}
+.search-box .search-nav,#newsletter-subscribe-block #newsletter-email,.search-input .search-text.form-control, .forum-search-box .form-control,.search-input .basic-search .forum-search-text.form-control{
+    height:36px;
+}
+.add-info .buttons .add-to-compare-list-button,.add-info .buttons .add-to-wishlist-button{
+    height:38px;
+}
+.breadcrumb{
+  border-color: #ededed;
+  border-style: solid;
+  border-width: 0 1px 4px;
+}
+.breadcrumb .active{
+    color:#999999;
+    font-weight:normal;
+}
+.nav-tabs > li > a {
+    border-color: #e7e7e7 !important;
+    color: #333333;
+    margin-top: 6px;
+    transition: all 0.2s ease-in-out 0s;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+   -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #ffffff;
+    border-color: #e7e7e7 #e7e7e7 transparent !important;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    color: #555555;
+    cursor: default;
+}
+.add-to-wishlist .btn{
+    background:url("/Themes/CoreTheme/Content/images/wishlist-icon.png") no-repeat scroll 8% 53% / 13px 13px #eeeeee;
+    margin-right: 20px;
+    padding-left: 30px;
+    border-color: #e2e2e2;
+    color: #555555;
+    border-width: 0 1px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+.email-a-friend .btn{
+    background:url("/Themes/CoreTheme/Content/images/email-button.png") no-repeat scroll 0 53% #eeeeee;
+    margin-right: 20px;
+    padding-left: 35px;
+    border-color: #e2e2e2;
+    color: #555555;
+    border-width: 0 1px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+.compare-products .btn{
+    background:url("/Themes/CoreTheme/Content/images/compare-button.png") no-repeat scroll 0 53% #eeeeee;
+    margin-right: 20px;
+    padding-left: 35px;
+    border-color: #e2e2e2;
+    color: #555555;
+    border-width: 0 1px 4px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+.add-to-wishlist .btn:hover,.email-a-friend .btn:hover,.compare-products .btn:hover{
+    background-color:#eeeeee !important;
+}
+.pager li{
+    display:inline-block;
+}
+.pager .current-page span,.pager li a{
+    background-color: #158cba;
+    border-color: #127ba3;
+    color: #ffffff;
+    cursor: pointer;
+    z-index: 3;
+}
+.pager li a, .pager li span{
+    background-color: #eeeeee;
+    border: 1px solid #e2e2e2;
+    color: #555555;
+    float: left;
+    line-height: 1.42857;
+    margin-left: -1px;
+    padding: 7px 12px;
+    position: relative;
+    text-decoration: none;
+    border-width: 0 1px 4px;
+    color: #555555;
+    font-size: 12px;
+    font-weight: bold;
+    position: relative;
+    text-transform: uppercase;
+    top: 0;
+}
+.change-password-page #OldPassword, .change-password-page #NewPassword, .change-password-page #ConfirmNewPassword,.payment-info #ExpireMonth, .payment-info #ExpireYear, .payment-info #PurchaseOrderNumber, .payment-info #CreditCardType, .payment-info #CardholderName, .payment-info #CardNumber, .payment-info #CardCode, #opc-payment_info #CreditCardType, #opc-payment_info #CardholderName, #opc-payment_info #CardNumber, #opc-payment_info #CardCode{
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #e7e7e7;
+    border-radius: 4px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.075) inset;
+    color: #555555;
+    display: block;
+    font-size: 14px;
+    height: 38px;
+    line-height: 1.42857;
+    padding: 7px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+}
+.change-password-page #OldPassword:focus, .change-password-page #NewPassword:focus, .change-password-page #ConfirmNewPassword:focus, .change-password-page #OldPassword:focus, .change-password-page #NewPassword:focus, .change-password-page #ConfirmNewPassword:focus, .payment-info #ExpireMonth:focus, .payment-info #ExpireYear:focus, .payment-info #PurchaseOrderNumber:focus, .payment-info #CreditCardType:focus, .payment-info #CardholderName:focus, .payment-info #CardNumber:focus, .payment-info #CardCode:focus, #opc-payment_info #CreditCardType:focus, #opc-payment_info #CardholderName:focus, #opc-payment_info #CardNumber:focus, #opc-payment_info #CardCode:focus {
+    border-color: #66afe9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;
+}
+@media (max-width: 767px){
+    .header-menu .nav.navbar-nav > li{
+        border-bottom:none;
+    }
+    .header-menu li.dropdown:hover > .dropdown-menu,.header-menu li.dropdown .caret{
+        display:none;
+    }
+}

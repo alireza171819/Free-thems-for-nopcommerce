@@ -1,0 +1,44 @@
+﻿<div class="header">
+    @Html.Widget("header")
+    <div class="header-upper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="header-selectors-wrapper">
+                        @Html.Action("TaxTypeSelector", "Common")
+
+                        @Html.Action("CurrencySelector", "Common")
+
+                        @Html.Action("LanguageSelector", "Common")
+
+                        @Html.Widget("header_selectors")
+                    </div>
+                </div>
+                <div class="col-md-9 header-upper-right pull-right">
+                    <div class="header-links-wrapper">
+                        @Html.Action("HeaderLinks", "Common")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-lower">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-left">
+                    <div class="search-box">
+                        @Html.Action("SearchBox", "Catalog")
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="header-logo">
+                        @Html.Action("Logo", "Common")
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

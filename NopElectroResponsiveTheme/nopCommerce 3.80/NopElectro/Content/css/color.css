@@ -1,0 +1,237 @@
+﻿/*General, Home, Footer and Header*/
+.owl-prev:hover, .owl-next:hover {
+    background-color: #555;
+}
+
+.theme-custom .nivo-controlNav a.active {
+    background-color: #555 !important;
+}
+
+.search-box .search-box-button, .newsletter-subscribe-button, .eu-cookie-bar-notification button {
+    background-color: #59b210;
+}
+
+    .search-box .search-box-button:hover, .newsletter-subscribe-button:hover, .eu-cookie-bar-notification button:hover {
+        background-color: #469009;
+    }
+
+.header-links a:hover, .mini-shopping-cart .name a, .footer-block .list a:hover, .footer-powered-by a,
+.eu-cookie-bar-notification a {
+    color: #59b210;
+}
+
+    .mini-shopping-cart .name a:hover {
+        color: #469009;
+    }
+
+.owl-title, .news-list-homepage .title, .home-page-polls .title {
+    background: #59b210;
+}
+
+@media (min-width: 1001px) {
+
+    .header-menu .sublist li:hover > a {
+        background-color: #59b210;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .mini-shopping-cart input[type="button"] {
+        background: #59b210;
+    }
+
+        .mini-shopping-cart input[type="button"]:hover {
+            background: #469009;
+        }
+
+    .header-menu > ul > li > a:hover {
+        color: #59b210;
+    }
+}
+
+@media (max-width: 1000px) {
+    .top-menu .sublist li a {
+        color: #59b210;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .footer-block .title {
+        margin: 0 0 1px;
+        background: #59b210 url('../images/toggle-white.png') right center no-repeat;
+        color: #fff;
+    }
+}
+
+
+/*Catalog*/
+.block .title {
+    background-color: #59b210;
+    color: #fff;
+}
+
+.item-box .product-title a:hover, .breadcrumb strong, .breadcrumb a, .block .list a:hover, .block .list .active > a,
+.block .view-all a, .filtered-items .item, .product-filter .group li a:hover,
+.block .tags li a:hover, .product-tags-all-page li a:hover, .overview .value a, .variant-overview .value a {
+    color: #59b210;
+}
+
+.block.block-category-navigation .list .active > a {
+    background: #59b210;
+    border-radius: 25px;
+    color: #fff;
+}
+
+.item-box .product-box-add-to-cart-button, .search-input .button-1,
+.overview .add-to-cart-button, .variant-overview .add-to-cart-button,
+.ui-dialog-content .back-in-stock-subscription-page .button-1 {
+    background-color: #59b210;
+}
+
+    .search-input .button-1:hover, .overview .add-to-cart-button:hover, .variant-overview .add-to-cart-button:hover,
+    .ui-dialog-content .back-in-stock-subscription-page .button-1:hover {
+        background-color: #469009;
+    }
+
+    .item-box .product-box-add-to-cart-button:hover {
+        background-color: #555;
+    }
+
+.product-review-links a:hover {
+    color: #469009;
+}
+
+.overview .product-price,
+.variant-overview .product-price {
+    color: #f23c3c;
+}
+
+/*Blog & News*/
+.blog-posts .buttons .read-more,
+.news-items .buttons .read-more {
+    background-color: #aaa;
+}
+
+    .blog-posts .buttons .read-more:hover,
+    .news-items .buttons .read-more:hover,
+    .poll .buttons input:hover {
+        background-color: #59b210;
+        color: #fff;
+        text-decoration: none;
+    }
+
+.news-list-homepage .view-all a:hover, .newsletter-result {
+    color: #59b210;
+}
+
+#bar-notification.success, #dialog-notifications-success {
+    color: #59b210;
+}
+
+#dialog-notifications-error, #bar-notification.error {
+    color: #f23c3c;
+}
+
+/*Cart, Wishlist, Checkout*/
+.cart .product .edit-item a, .cart-total .order-total, .terms-of-service a, .order-completed .details a,
+.cart a, .data-table a, .forum-table a {
+    color: #59b210;
+}
+
+.cart .product a:hover, .data-table .product a:hover, .data-table .info a:hover, .wishlist-page .share-info a:hover,
+.opc .back-link a:hover {
+    color: #469009;
+}
+
+.cart th, .data-table th, .forum-table th,
+.wishlist-content .update-wishlist-button, .wishlist-content .wishlist-add-to-cart-button,
+.shopping-cart-page .common-buttons input:first-child, .checkout-page .button-1, .checkout-page a.button-2.btn-sm:hover {
+    background-color: #59b210;
+}
+
+    .wishlist-content .update-wishlist-button:hover,
+    .wishlist-content .wishlist-add-to-cart-button:hover,
+    .shopping-cart-page .common-buttons input:first-child:hover,
+    .checkout-page .button-1:hover {
+        background-color: #469009;
+    }
+
+.cart-footer .checkout-button {
+    background: #f23c3c;
+}
+
+
+/*********** ACCOUNT, CONTACT & EMAIL A FRIEND & APPLY FOR VENDOR ACCOUNT ***********/
+.login-page .title, .fieldset .title, .section .title,
+.product-review-item .review-info a,
+.product-review-helpfulness .vote, .email-a-friend-page .title h2 {
+    color: #59b210;
+}
+
+.registration-page .button-1, .registration-result-page .button-1, .login-page .button-1,
+.password-recovery-page .button-1, .account-page .button-1,
+.return-request-page .button-1, .opc .allow.active .step-title,
+.order-details-page .page-title a.print-order-button,
+.contact-page .button-1, .email-a-friend-page .button-1, .apply-vendor-page .button-1 {
+    background-color: #59b210;
+}
+
+    .registration-page .button-1:hover, .registration-result-page .button-1:hover,
+    .login-page .button-1:hover, .password-recovery-page .button-1:hover,
+    .account-page .button-1:hover, .return-request-page .button-1:hover,
+    .order-details-page .page-title a.print-order-button:hover,
+    .order-details-page .actions input:first-child:hover, .contact-page .button-1:hover,
+    .email-a-friend-page .button-1:hover, .apply-vendor-page .button-1:hover {
+        background-color: #469009;
+    }
+
+.block-account-navigation a.active, .address-list-page .button-2:hover, .order-list-page .button-2:hover,
+.order-details-page .order-overview .order-total strong {
+    color: #469009;
+}
+
+.order-details-page .actions input:first-child {
+    background-color: #f23c3c;
+}
+
+/*Buttons and Links*/
+.order-details-page .download a, .private-message-send-page a, .accept-privacy-policy span, .registration-result-page .result,
+.external-auth-association a, .add-more-external-records a, .return-request-list-page a, .order-details-page .tax-shipping-info a,
+.sitemap-page a:hover, .post-title:hover, .news-title:hover, .blog-page .tags a, .blogpost-page .tags a,
+.blog-posts .buttons .read-comments:hover, .comment-info a.username:hover, .forum-search-box .advanced a:hover,
+.forums-table-section-title a:hover, .forums-table-section .forum-title a:hover, .forums-table-section .topic-title a:hover,
+.topic-post a.username:hover, .topic-post .post-actions .edit-post-button:hover, .topic-post .post-actions .delete-post-button:hover,
+.topic-post .post-actions .post-link-button, .ui-tabs-nav li.ui-state-active a, .private-messages-page td.subject a.pm-unread,
+.latest-posts .topic-title a:hover, .shipment-details-page .tracking-number .tracking-url, .header-menu > ul > li > a:hover,
+.footer-tax-shipping a, .item-box .tax-shipping-info a, .manufacturer-grid .title a:hover, .vendor-grid .title a:hover,
+.overview .tax-shipping-info a, .variant-overview .tax-shipping-info a, .product-reviews-page h1 a,
+.compare-products-table .remove-button:hover, .compare-products-table .product-name td a:hover {
+    color: #59b210;
+}
+
+.order-details-page .repost .button-2, .user-agreement-page .button-1, .new-comment .button-1,
+.forums-table-section .view-all a, .forum-edit-page .buttons .button-1, .move-topic-page .buttons .button-1,
+.private-messages .buttons .button-1, .contact-vendor .button-2, .write-review .button-1,
+.compare-products-page .clear-list, .enter-password-form input[type="submit"], .ui-datepicker-header,
+.color-squares .selected-value .color-container {
+    background-color: #59b210;
+}
+
+    .order-details-page .repost .button-2:hover, .user-agreement-page .button-1:hover, .new-comment .button-1:hover,
+    .forums-table-section .view-all a:hover, .forum-edit-page .buttons .button-1:hover, .move-topic-page .buttons .button-1:hover,
+    .private-messages .buttons .button-1:hover, .contact-vendor .button-2:hover, .write-review .button-1:hover,
+    .compare-products-page .clear-list:hover, .enter-password-form input[type="submit"]:hover {
+        background-color: #469009;
+    }
+
+.cart td.subtotal .discount {
+    color: #f23c3c;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+    outline: 2px solid #59b210;
+    color: #59b210;
+    /*override jQuery UI styles, do not delete doubled properties*/
+    color: #59b210 !important;
+}

@@ -1,0 +1,30 @@
+﻿@model IList<ProductOverviewModel>
+
+@using Nop.Web.Models.Catalog;
+
+@if (Model.Count > 0)
+{
+    <script>
+        $(document).ready(function () {
+            //Carousel
+            $(".home-page-product-grid").owlCarousel({
+                items: 4,
+                itemsDesktopSmall: [991, 3],
+                itemsTablet: [767, 3],
+                itemsMobile: [500, 2],
+                lazyLoad: true,
+                navigation: true,
+                pagination: false
+            });
+        });
+    </script>
+    <div class="owl-carousel home-page-product-grid">
+        @foreach (var item in Model)
+        {
+            <div>
+                @Html.Partial("_HomeProductBox", item)
+            </div>
+        }
+    </div>
+}
+

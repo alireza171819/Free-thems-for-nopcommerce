@@ -1,0 +1,83 @@
+﻿@model VendorInfoModel
+
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    Html.AddTitleParts(T("PageTitle.VendorInfo").Text);
+    //page class
+    Html.AppendPageCssClassParts("html-account-page");
+    Html.AppendPageCssClassParts("html-vendorinfo-page");
+}
+@section left
+{
+    @await Component.InvokeAsync("CustomerNavigation", new { selectedTabId = CustomerNavigationEnum.VendorInfo })
+}
+
+    <div class="page account-page vendorinfo-page">
+        <div class="page-title panel-heading">
+            <h1>@T("Account.MyAccount") - @T("Account.VendorInfo")</h1>
+        </div>
+        <div class="page-body">
+            <form asp-route="CustomerVendorInfo" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="message-error"></div>
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-md-2" asp-for="Name"></label>
+                        <div class="col-sm-6 col-md-6">
+                            <input asp-for="Name" class="form-control" />
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <nop-required />
+                            <span asp-validation-for="Name"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-md-2" asp-for="Email"></label>
+                        <div class="col-sm-6 col-md-6">
+                            <input class="form-control" asp-for="Email" />
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <nop-required />
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-md-2" asp-for="Description"></label>
+                        <div class="col-sm-6 col-md-6">
+                            <textarea class="form-control" asp-for="Description"></textarea>
+                        </div>
+                        <div class="col-sm-4 col-md-4">
+                            <span asp-validation-for="Description"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2 col-md-2" asp-for="PictureUrl"></label>
+                        <div class="col-sm-6 col-md-6">
+                            <input name="uploadedFile" type="file" class="btn btn-default" />
+                            @if (!string.IsNullOrEmpty(Model.PictureUrl))
+                            {
+                                <div class="vendor-picture">
+                                    <img src="@(Model.PictureUrl)" alt="picture" />
+                                    <input type="submit" name="remove-picture" class="remove-picture-button" value="@T("Account.VendorInfo.Picture.Remove")" />
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                @if (Model.VendorAttributes.Count > 0)
+                {
+                    <div class="fieldset">
+                        <div class="form-group">
+                            @await Html.PartialAsync("_VendorAttributes", Model.VendorAttributes)
+                        </div>
+                    </div>
+                }
+                <div class="form-group row">
+                    <div class="buttons col-sm-offset-2 col-md-offset-2 col-md-5">
+                        <input type="submit" value="@T("Common.Save")" name="save-info-button" class="btn btn-primary save-vendorinfo-button" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

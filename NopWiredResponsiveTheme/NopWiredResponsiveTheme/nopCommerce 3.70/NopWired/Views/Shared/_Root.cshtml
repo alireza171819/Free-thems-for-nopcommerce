@@ -1,0 +1,40 @@
+﻿@using Nop.Services.Customers
+@using Nop.Core.Domain.Customers
+@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+
+    Html.AddScriptParts("~/Themes/NopWired/Content/js/hoverIntent.js");
+    bool isRegister = WorkContext.CurrentCustomer.IsRegistered();
+
+    Html.AddScriptParts("~/Themes/NopWired/Content/js/bootstrap.min.js");
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+@Html.Action("JavaScriptDisabledWarning", "Common")
+@Html.Partial("OldInternetExplorerWarning")
+@Html.Action("AdminHeaderLinks", "Common")
+
+<div class="master-wrapper-page">
+    <div class="master-wrapper-content">
+        <script type="text/javascript">
+            AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+        </script>
+        @Html.Partial("Header")
+        <div class="header-menu">
+            <div class="header-search">
+                <div class="search-box">
+                    @Html.Action("SearchBox", "Catalog")
+                </div>
+            </div>
+            @Html.Action("TopMenu", "Catalog")
+        </div>
+        @Html.Widget("content_before")
+        <div class="master-wrapper-main">
+            @RenderBody()
+        </div>
+        @Html.Widget("content_after")
+    </div>
+    @Html.Action("Footer", "Common")
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")

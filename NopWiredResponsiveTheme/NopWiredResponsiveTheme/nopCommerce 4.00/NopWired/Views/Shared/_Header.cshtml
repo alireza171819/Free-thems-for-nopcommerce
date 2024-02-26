@@ -1,0 +1,11 @@
+﻿<div class="header">
+    @await Component.InvokeAsync("Widget", new { widgetZone = "header_before" })
+    <div class="header-logo">
+        @await Component.InvokeAsync("Logo")
+    </div>
+    <div class="header-links-wrapper">
+        @await Component.InvokeAsync("Widget", new { widgetZone = "header_selectors" })
+        @await Component.InvokeAsync("HeaderLinks")
+    </div>
+    <div class="clear"></div>
+</div>

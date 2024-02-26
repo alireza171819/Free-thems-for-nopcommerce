@@ -1,0 +1,40 @@
+// This file is used to allow you to upload nopAccelerate themes from the nopCommerce administaration
+// You just need to upload the zip package containing this file and all plugins and themes in the zip will be uploaded
+[
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.40",
+    "SystemName": "CoreTheme",
+    "DirectoryPath": "Themes/CoreTheme/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.40",
+    "SystemName": "NobleTheme",
+    "DirectoryPath": "Themes/NobleTheme/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.40",
+    "SystemName": "RootTheme",
+    "DirectoryPath": "Themes/RootTheme/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.40",
+    "SystemName": "SimplexTheme",
+    "DirectoryPath": "Themes/SimplexTheme/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.40",
+    "SystemName": "BakeDelightsTheme",
+    "DirectoryPath": "Themes/BakeDelightsTheme/"
+  },
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.40",
+    "SystemName": "WristwearTheme",
+    "DirectoryPath": "Themes/WristwearTheme/"
+  }
+]

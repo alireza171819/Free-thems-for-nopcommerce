@@ -1,0 +1,29 @@
+﻿@model ShoppingCartModel.DiscountBoxModel
+@using Nop.Web.Models.ShoppingCart;
+@if (Model.Display)
+{
+    <div class="coupon-box">
+        <div class="title">
+           <strong>@T("ShoppingCart.DiscountCouponCode")</strong>
+        </div>
+        <div class="hint">@T("ShoppingCart.DiscountCouponCode.Tooltip")</div>
+            <input name="discountcouponcode" type="text" class="discount-coupon-code form-control" />&nbsp;
+        <div class="discount-button">
+            <input type="submit" name="applydiscountcouponcode" value="@T("ShoppingCart.DiscountCouponCode.Button")" class="btn btn-default apply-discount-coupon-code-button" />   
+        </div>
+       @if (!String.IsNullOrEmpty(Model.Message))
+        {
+            <p class="@(Model.IsApplied ? "message bg-success" : "message bg-danger")">
+                @Model.Message
+            </p>
+        }
+        @if (!String.IsNullOrEmpty(Model.CurrentCode))
+        {
+            <div class="current-code">
+                <p class="bg-success">@string.Format(T("ShoppingCart.DiscountCouponCode.CurrentCode").Text, Model.CurrentCode)
+                @*empty value (little hack for FormValueExistsAttribute)*@
+                <input type="submit" name="removediscountcouponcode" value=" " title="@T("Common.Remove")" <i class="remove-discount-button" /></p>
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,36 @@
+﻿@using Nop.Core
+@using Nop.Core.Domain.Catalog
+@using Nop.Services.Helpers
+@using Nop.Web.Framework.UI
+
+@inject CatalogSettings catalogSettings
+@inject IThemeContext themeContext
+@inject IUserAgentHelper userAgentHelper
+@{
+    var themeName = await themeContext.GetWorkingThemeNameAsync();
+    var supportRtl = await Html.ShouldUseRtlThemeAsync();
+
+    //add main CSS file
+
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/responsive{(supportRtl ? ".rtl" : "")}.css", excludeFromBundle: false);
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/Phoenix{(supportRtl ? ".rtl" : "")}.css", excludeFromBundle: false);
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/styles{(supportRtl ? ".rtl" : "")}.css", excludeFromBundle: false);
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/Phoenix_icon{(supportRtl ? ".rtl" : "")}.css", excludeFromBundle: false);
+
+    //other 3rd party css file
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/owl.carousel.min.css", excludeFromBundle: false);
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/owl.theme.default.min.css", excludeFromBundle: false);
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/slick.css", excludeFromBundle: false);
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/slick-theme.css", excludeFromBundle: false);
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/slinky.min.css", excludeFromBundle: false);
+
+    //add swiper css file
+    if (catalogSettings.DisplayAllPicturesOnCatalogPages)
+    {
+        NopHtml.AppendCssFileParts("~/lib_npm/swiper/swiper-bundle.min.css");
+    }
+
+    //common
+    //add jQuery UI css file
+    NopHtml.AppendCssFileParts($"~/Themes/{themeName}/Content/css/jquery-ui.min.css");
+}

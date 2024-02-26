@@ -1,0 +1,35 @@
+﻿@using Nop.Core
+@using Nop.Services.Helpers
+@using Nop.Web.Framework.UI
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@inject IStoreContext storeContext
+@inject IUserAgentHelper userAgentHelper
+
+@{
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+    var themeName = themeContext.WorkingThemeName;
+    var isIe8 = userAgentHelper.IsIe8();
+
+    //add browser specific CSS files
+    if (isIe8)
+    {
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/css/ie8.css");
+    }
+
+    //responsive design
+    Html.AppendCssFileParts($"~/Themes/{themeName}/Content/responsive.css");
+    //add main CSS file
+    if (supportRtl)
+    {
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/styles.rtl.css");
+    }
+    else
+    {
+        Html.AppendCssFileParts($"~/Themes/{themeName}/Content/styles.css");
+        @* Color Scheme *@
+        Html.AddCssFileParts($"~/Themes/{themeName}/Content/ColorScheme/black.css");
+    }
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+}

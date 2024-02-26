@@ -1,0 +1,42 @@
+﻿@using Nop.Core;
+@using Nop.Core.Domain
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+    
+    //we do not support responsive for RTL yet
+    //if (supportRtl)
+    //{
+    //    supportResponsive = false;
+    //}
+    //add browser specific CSS files
+    var browser = Request.Browser;
+    var isIeEightOrLess = false;
+    if (browser.Browser == "IE" && browser.MajorVersion <= 8)
+    {
+        isIeEightOrLess = true;
+    }
+    
+    //add main CSS file
+    if (supportRtl)
+    {
+        //RTL is not supported by Core Theme
+        //Html.AppendCssFileParts("~/Themes/CoreTheme/Content/styles.rtl.css");
+    }
+    else
+    {
+        <meta name="viewport" content="width=device-width, initial-scale=1" />   
+        Html.AppendCssFileParts(string.Format("~/Themes/CoreTheme/Content/css/theme-styles-responsive.css",themeName));
+        Html.AppendCssFileParts(string.Format("~/Themes/CoreTheme/Content/css/theme-styles.css",themeName));
+        Html.AppendCssFileParts(string.Format("~/Themes/CoreTheme/Content/css/font-awesome.min.css",themeName));
+        Html.AppendCssFileParts(string.Format("~/Themes/CoreTheme/Content/css/bootstrap.min.css",themeName));   
+    }
+    if (isIeEightOrLess)
+    {
+        Html.AddScriptParts("~/Themes/CoreTheme/Content/js/selectivizr.min.js");
+        Html.AddScriptParts("~/Themes/CoreTheme/Content/js/respond.min.js");
+    }
+}

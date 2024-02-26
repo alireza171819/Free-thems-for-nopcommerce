@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "_Root";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+}
+
+<div class="center-1">
+    <div class="page home-page">
+        <div class="page-body">
+            <table class="promo">
+                <tr>
+                    <td class="left">
+                        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageTop })
+                    </td>
+                    <td class="right">
+                        <table>
+                            <tr>
+                                <td>
+                                    @await Component.InvokeAsync("TopicBlock", new { systemName = "Promo1" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @await Component.InvokeAsync("TopicBlock", new { systemName = "Promo2" })
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="subpromo">
+                <tr>
+                    <td>
+                        @await Component.InvokeAsync("TopicBlock", new { systemName = "Promo3" })
+                    </td>
+                    <td>
+                        @await Component.InvokeAsync("TopicBlock", new { systemName = "Promo4" })
+                    </td>
+                    <td class="last">
+                        @await Component.InvokeAsync("TopicBlock", new { systemName = "Brands" })
+                    </td>
+                </tr>
+            </table>
+            <div class="promo-bottom">
+                @await Component.InvokeAsync("TopicBlock", new { systemName = "HomePageText" })
+            </div>
+            <div class="featured-social">
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeProducts })
+                <div class="jcarousel-skin-tango">
+                    @await Component.InvokeAsync("HomepageProducts")
+                </div>
+                @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HomePageBeforeNews })
+                <div class="newsletter subscribe">
+                    @await Component.InvokeAsync("NewsletterBox")
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

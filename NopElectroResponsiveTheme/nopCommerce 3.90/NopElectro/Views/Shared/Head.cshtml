@@ -1,0 +1,45 @@
+﻿@using Nop.Core;
+@using Nop.Core.Infrastructure
+@using Nop.Web.Framework.Themes
+@using Nop.Web.Framework.UI
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+    var themeName = EngineContext.Current.Resolve<IThemeContext>().WorkingThemeName;
+
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/color.css", themeName));
+
+    //add browser specific CSS files
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/ie8.css", themeName));
+    }
+    <link href="//fonts.googleapis.com/css?family=Poppins:400,500,600|Quattrocento+Sans:400,700" rel="stylesheet">
+    //add main CSS file
+    if (supportRtl)
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.rtl.css", themeName));
+    }
+    else
+    {
+        Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/styles.css", themeName));
+    }
+
+    //bootstrap and slider CSS file - Pro nopCommerce
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/owl.carousel.css", themeName));
+    Html.AppendCssFileParts(string.Format("~/Themes/{0}/Content/css/bootstrap.css", themeName));
+
+    //add jQuery UI css file
+    Html.AppendCssFileParts("~/Content/jquery-ui-themes/smoothness/jquery-ui-1.10.3.custom.min.css");
+
+    if (browser.Browser == "IE" && browser.MajorVersion == 8)
+    {
+        Html.AddScriptParts("~/Scripts/selectivizr.min.js");
+        Html.AddScriptParts("~/Scripts/respond.min.js");
+    }
+
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/bootstrap.min.js", themeName));
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/owl.carousel.min.js", themeName));
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/jquery.bpopup.min.js", themeName));
+    Html.AddScriptParts(string.Format("~/Themes/{0}/Content/js/jquery.dotdotdot.min.js", themeName));
+}

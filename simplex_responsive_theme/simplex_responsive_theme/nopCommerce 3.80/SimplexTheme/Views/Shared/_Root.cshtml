@@ -1,0 +1,56 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.Head.cshtml";
+}
+@Html.Widget("body_start_html_tag_after")
+@Html.Partial("_Notifications")
+<div class="master-wrapper-page">
+        @Html.Action("JavaScriptDisabledWarning", "Common")
+        @Html.Partial("OldInternetExplorerWarning")
+        <div class="admin-header-link">
+            <ul>
+                @Html.Action("AdminHeaderLinks", "Common")
+            </ul>
+        </div>    
+        @Html.Partial("Header")
+        <script type="text/javascript">
+            AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+        </script>
+        <div class="header-menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.Action("TopMenu", "Catalog")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="master-wrapper-content">
+            @Html.Widget("home_page_top")
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                         @Html.Widget("content_before")
+                    </div>
+                </div>
+                @*ajax loading window*@
+                <div class="ajax-loading-block-window" style="display: none">
+                    <div class="loading-image">
+                    </div>
+                </div>
+            </div>
+            <div class="master-column-wrapper">
+                <div class="container">
+                    <div class="row">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+            @Html.Widget("content_after")
+        </div>
+        @Html.Action("Footer", "Common")
+        @* Use this content for back to top page scrolling *@
+        <div id="backTop"></div>
+</div>
+@Html.Action("EuCookieLaw", "Common")
+@Html.Widget("body_end_html_tag_before")
+

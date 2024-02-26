@@ -1,0 +1,85 @@
+﻿@model ProductEmailAFriendModel
+@using Nop.Web.Models.Catalog;
+@{
+    Layout = "~/Views/Shared/_ColumnsOne.cshtml";
+
+    //title
+    Html.AddTitleParts(Model.ProductName);
+    //page class
+    Html.AddTitleParts(T("PageTitle.ProductEmailAFriend").Text);
+    Html.AppendPageCssClassParts("html-email-a-friend-page");
+}
+<div class="page email-a-friend-page from-panel">
+    <div class="page-title panel-heading">
+        <h1>@T("Products.EmailAFriend.Title")</h1>
+    </div>
+    <div class="page-body panel-body">
+        <div class="title">
+            <h2><a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })" class="product">@Model.ProductName</a></h2>
+        </div>
+        @if (Model.SuccessfullySent)
+        {
+            <div class="result alert alert-success">
+                @Model.Result
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm())
+            {     
+                @Html.AntiForgeryToken()    
+           	    var validationSummary = Html.ValidationSummary(true);
+                if (!MvcHtmlString.IsNullOrEmpty(validationSummary))
+                {
+                    <div class="message-error">@validationSummary</div>
+                }
+                <form role="form" class="form-horizontal">
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.FriendEmail, new { @class = "col-sm-4 col-md-4 control-label" })
+                        <div class="col-sm-5 col-md-5">
+                            @Html.TextBoxFor(model => model.FriendEmail, new { @class = "friend-email form-control", placeholder = T("Products.EmailAFriend.FriendEmail.Hint") })
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.FriendEmail)    
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.YourEmailAddress, new { @class = "col-sm-4 col-md-4 control-label" })
+                        <div class="col-sm-5 col-md-5">
+                            @Html.TextBoxFor(model => model.YourEmailAddress, new { @class = "your-email form-control", placeholder = T("Products.EmailAFriend.YourEmailAddress.Hint") })
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            @Html.RequiredHint()
+                            @Html.ValidationMessageFor(model => model.YourEmailAddress)         
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.PersonalMessage, new { @class = "col-sm-4 col-md-4 control-label" })
+                        <div class="col-sm-5 col-md-5">
+                            @Html.TextAreaFor(model => model.PersonalMessage, new { @class = "personal-message form-control", placeholder = T("Products.EmailAFriend.PersonalMessage.Hint") })
+                        </div>
+                        <div class="col-sm-3 col-md-3">
+                            @Html.ValidationMessageFor(model => model.PersonalMessage)
+                        </div>
+                    </div>
+                    @if (Model.DisplayCaptcha)
+                    {
+                        <div class="form-group row">
+                            <div class="col-sm-offset-4 col-md-offset-4 col-md-8">
+                                <div class="captcha-box">
+                                    @Html.Raw(Html.GenerateCaptcha())
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="form-group row">
+                        <div class="col-sm-offset-4 col-md-offset-4 col-md-8">
+                            <input type="submit" name="send-email" class="btn btn-primary send-email-a-friend-button" value="@T("Products.EmailAFriend.Button")" />
+                        </div>
+                    </div>
+            </form>
+          }
+        }
+    </div>
+</div>

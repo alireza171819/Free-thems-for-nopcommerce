@@ -1,0 +1,34 @@
+You can install theme in your nopCommerce store using following guidelines:
+
+NopCommerce 4.00
+=================
+
+1. Extract downloaded theme folder "Theme.Flexo.Free" anywhere in your computer
+2. Inside your nopCommerce admin, Go to Configuration -> Plugins -> Local plugins page
+3. On Local plugins page, click "Upload plugin or theme" button in green color at upper right corner
+4. A popup will be shown asking to choose zip file. Click on "Choose File" button inside popup
+5. From Choose file dialog, navigate to extracted theme folder and select "Flexo.zip" file inside extracted folder under nopCommerce4.00 folder then click "Open"
+6. After this, click on "Upload plugin or theme" button inside popup window to upload this zip file to your nopCommerce /Themes directory
+7. Once upload is finished, Go to Configuration -> Settings -> General settings page and choose newly uploaded theme in "Default store theme" option. Click Save. Theme will be applied to your nopCommerce website
+
+NopCommerce 4.10
+=================
+
+1. Extract downloaded theme folder "Theme.Flexo.Free" anywhere in your computer
+2. Inside your nopCommerce admin, Go to Configuration -> Plugins -> Local plugins tab
+3. On Local plugins page, click "Upload plugin or theme" button in green color at upper right corner
+4. A popup will be shown asking to choose zip file. Click on "Choose File" button inside popup
+5. From Choose file dialog, navigate to extracted theme folder and select "Flexo.zip" file inside extracted folder under nopCommerce4.10 folder then click "Open"
+6. After this, click on "Upload plugin or theme" button inside popup window to upload this zip file to your nopCommerce /Themes directory
+7. Once upload is finished, Go to Configuration -> Settings -> General settings page and choose newly uploaded theme in "Default store theme" option. Click Save. Theme will be applied to your nopCommerce website
+
+NopCommerce 4.20
+=================
+
+1. Extract downloaded theme folder "Theme.Flexo.Free" anywhere in your computer
+2. Inside your nopCommerce admin, Go to Configuration -> Plugins -> Local plugins tab
+3. On Local plugins page, click "Upload plugin or theme" button in green color at upper right corner
+4. A popup will be shown asking to choose zip file. Click on "Choose File" button inside popup
+5. From Choose file dialog, navigate to extracted theme folder and select "Flexo.zip" file inside extracted folder under nopCommerce4.10 folder then click "Open"
+6. After this, click on "Upload plugin or theme" button inside popup window to upload this zip file to your nopCommerce /Themes directory
+7. Once upload is finished, Go to Configuration -> Settings -> General settings page and choose newly uploaded theme in "Default store theme" option. Click Save. Theme will be applied to your nopCommerce website

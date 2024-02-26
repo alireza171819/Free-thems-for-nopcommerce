@@ -1,0 +1,85 @@
+﻿@using Nop.Core
+@using Nop.Services.Helpers
+@using Nop.Core.Domain
+@using StackExchange.Profiling
+@using Nop.Core.Domain.Common
+@using Nop.Core.Domain.Seo
+@using Nop.Services.Events
+@using Nop.Services.Security
+@using Nop.Web.Framework.Events
+@inject CommonSettings commonSettings
+@inject IEventPublisher eventPublisher
+@inject IPermissionService permissionService
+@inject SeoSettings seoSettings
+@inject StoreInformationSettings storeInformationSettings
+@inject IThemeContext themeContext
+
+@{
+    var themeName = themeContext.WorkingThemeName;
+
+    //resources
+    Html.AppendCssFileParts("~/lib/jquery-ui-themes/smoothness/jquery-ui-1.10.3.custom.min.css");
+
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/js/public.ajaxcart.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/js/public.common.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/lib/jquery-migrate-1.2.1.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/lib/jquery-ui-1.10.3.custom.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/lib/jquery.validate.unobtrusive.min.js");
+    Html.AppendScriptParts(ResourceLocation.Footer, "~/lib/jquery.validate.min.js");
+    Html.AppendScriptParts(ResourceLocation.Head, "~/lib/jquery-1.10.2.min.js");
+    Html.AddScriptParts(ResourceLocation.Footer, $"~/Themes/{themeName}/Content/js/jquery.ui.totop.js");
+
+    //X-UA-Compatible tag
+    if (commonSettings.RenderXuaCompatible)
+    {
+        Html.AppendHeadCustomParts($"<meta http-equiv=\"X-UA-Compatible\" content=\"{commonSettings.XuaCompatibleValue}\"/>");
+    }
+    //custom tag(s)
+    if (!string.IsNullOrEmpty(seoSettings.CustomHeadTags))
+    {
+        Html.AppendHeadCustomParts(seoSettings.CustomHeadTags);
+    }
+
+    var displayMiniProfiler = storeInformationSettings.DisplayMiniProfilerInPublicStore
+   && (!storeInformationSettings.DisplayMiniProfilerForAdminOnly || permissionService.Authorize(StandardPermissionProvider.AccessAdminPanel));
+    //event
+    eventPublisher.Publish(new PageRenderingEvent(this.Html));
+}
+<!DOCTYPE html>
+<html @(this.ShouldUseRtlTheme() ? Html.Raw(" dir=\"rtl\"") : null) @Html.NopPageCssClasses()>
+    <head>
+        <title>@Html.NopTitle()</title>
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+        <meta name="description" content="@(Html.NopMetaDescription())" />
+        <meta name="keywords" content="@(Html.NopMetaKeywords())" />
+        <meta name="generator" content="nopCommerce" />
+        @Html.NopHeadCustom()
+        @*This is used so that themes can inject content into the header*@
+        @await Html.PartialAsync("Head")
+        @await Component.InvokeAsync("Widget", new { widgetZone = "head_html_tag" })
+        @Html.NopCssFiles(this.Url, ResourceLocation.Head)
+        @Html.NopScripts(this.Url, ResourceLocation.Head)
+        @Html.NopCanonicalUrls()
+        @await Component.InvokeAsync("NewsRssHeaderLink")
+        @await Component.InvokeAsync("BlogRssHeaderLink")
+        @*Favicon - upload favicon.ico file to the root directory*@
+        @await Component.InvokeAsync("Favicon")
+        @if (displayMiniProfiler)
+        {
+            <mini-profiler />
+        }
+        @Html.NopInlineScripts(this.Url, ResourceLocation.Head)
+        <!--Powered by nopCommerce - http://www.nopCommerce.com-->
+    </head>
+    <body>
+        @RenderBody()
+        @Html.NopCssFiles(this.Url, ResourceLocation.Footer)
+        @Html.NopScripts(this.Url, ResourceLocation.Footer)
+        @Html.NopInlineScripts(this.Url, ResourceLocation.Footer)
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $().UItoTop({ easingType: 'easeOutQuart' });
+            });
+        </script>
+    </body>
+</html>

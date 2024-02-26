@@ -1,0 +1,171 @@
+﻿@model FooterModel
+@using Nop.Core
+@using Nop.Core.Domain.Tax
+@inject IWorkContext workContext;
+
+<div class="footer">
+    <div class="footer-menu-wrapper">
+        <div class="column information footer-block">
+            <div id="footer-menu-button-1" class="title">
+                <a href="">
+                    <span class="icon"><span class="line"></span><span class="line"></span><span class="line"></span></span>
+                    <span class="title">@T("Footer.Information")</span>
+                </a>
+            </div>
+            <ul class="footer-menu-1">
+                @if (Model.SitemapEnabled && Model.DisplaySitemapFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</a></li>
+                }
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn1).ToList())
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+                @if (Model.DisplayContactUsFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
+                }
+            </ul>
+        </div>
+        <div class="column customer-service footer-block">
+            <div id="footer-menu-button-2" class="title">
+                <a href="">
+                    <span class="icon"><span class="line"></span><span class="line"></span><span class="line"></span></span>
+                    <span class="title">@T("Footer.CustomerService")</span>
+                </a>
+            </div>
+            <ul class="footer-menu-2">
+                @if (Model.DisplayProductSearchFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("ProductSearch")">@T("Search")</a> </li>
+                }
+                @if (Model.NewsEnabled && Model.DisplayNewsFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("NewsArchive")">@T("News")</a></li>
+                }
+                @if (Model.BlogEnabled && Model.DisplayBlogFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("Blog")">@T("Blog")</a></li>
+                }
+                @if (Model.ForumEnabled && Model.DisplayForumsFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</a></li>
+                }
+                @if (Model.RecentlyViewedProductsEnabled && Model.DisplayRecentlyViewedProductsFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</a></li>
+                }
+                @if (Model.CompareProductsEnabled && Model.DisplayCompareProductsFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</a></li>
+                }
+                @if (Model.NewProductsEnabled && Model.DisplayNewProductsFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</a></li>
+                }
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn2).ToList())
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+                @if (Model.AllowCustomersToCheckGiftCardBalance)
+                {
+                    <li><a href="@Url.RouteUrl("CheckGiftCardBalance")">@T("CheckGiftCardBalance")</a></li>
+                }
+            </ul>
+        </div>
+        <div class="column my-account footer-block">
+            <div id="footer-menu-button-3" class="title">
+                <a href="">
+                    <span class="icon"><span class="line"></span><span class="line"></span><span class="line"></span></span>
+                    <span class="title">@T("Footer.MyAccount")</span>
+                </a>
+            </div>
+            <ul class="footer-menu-3">
+                @if (Model.DisplayCustomerInfoFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("CustomerInfo")" class="account">@T("Account.MyAccount")</a></li>
+                }
+                @if (Model.DisplayCustomerOrdersFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</a></li>
+                }
+                @if (Model.DisplayCustomerAddressesFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("CustomerAddresses")" class="">@T("Account.CustomerAddresses")</a></li>
+                }
+                @if (Model.ShoppingCartEnabled && Model.DisplayShoppingCartFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("ShoppingCart")" class="ico-cart">@T("ShoppingCart")</a></li>
+                }
+                @if (Model.WishlistEnabled && Model.DisplayWishlistFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("Wishlist")" class="ico-wishlist">@T("Wishlist")</a></li>
+                }
+                @if (Model.AllowCustomersToApplyForVendorAccount && Model.DisplayApplyVendorAccountFooterItem)
+                {
+                    <li><a href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</a></li>
+                }
+                @foreach (var topic in Model.Topics.Where(x => x.IncludeInFooterColumn3).ToList())
+                {
+                    <li><a href="@Url.RouteUrl("Topic", new { SeName = topic.SeName })">@topic.Name</a></li>
+                }
+            </ul>
+        </div>
+        <div class="column follow-us footer-block">
+            <div id="footer-menu-button-4" class="title">
+                <a href="">
+                    <span class="icon"><span class="line"></span><span class="line"></span><span class="line"></span></span>
+                    <span class="title">@T("Footer.FollowUs")</span>
+                </a>
+            </div>
+            @await Component.InvokeAsync("SocialButtons")
+        </div>
+        <div class="column last">
+            <img src="@Url.Content("~/Themes/NopWired/Content/images/creditcards.gif")" style="max-width: 100%;" />
+        </div>
+    </div>
+    <div class="copyright">
+        @if (!Model.HidePoweredByNopCommerce)
+        {
+            <div class="footer-poweredby">
+                Powered by <a href="http://www.nopcommerce.com/">nopCommerce</a>
+                @*Would you like to remove the "Powered by nopCommerce" link in the bottom of the footer?
+                    Find more info here http://www.nopcommerce.com/copyrightremoval.aspx*@
+
+                Developed by <a href="http://www.pronopcommerce.com">pro nopCommerce</a>
+                @*If you downloaded this theme for free, we appreciate if you can play the game fair by not removing the credit.
+                    If you would like to remove the credit, you can purchase a commercial license from http://www.pronopcommerce.com/nopwired-free-nopcommerce-responsive-theme'*@
+            </div>
+        }
+        <div class="footer-disclaimer">
+            @T("Content.CopyrightNotice", DateTime.Now.Year, Model.StoreName)
+        </div>
+        <div class="clear"></div>
+    </div>
+    @if (Model.DisplayTaxShippingInfoFooter)
+    {
+        var inclTax = workContext.TaxDisplayType == TaxDisplayType.IncludingTax;
+        <span class="footer-tax-shipping">
+            @T(inclTax ? "Footer.TaxShipping.InclTax" : "Footer.TaxShipping.ExclTax", Url.RouteUrl("Topic", new { SeName = Html.GetTopicSeName("shippinginfo") }))
+        </span>
+    }
+    <div class="footer-store-theme">
+        @await Component.InvokeAsync("StoreThemeSelector")
+    </div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.Footer })
+</div>
+
+<script asp-location="Footer">
+    $(document).ready(function () {
+        $('.footer-block .title').on('click', function (e) {
+            e.preventDefault();
+
+            if ($(this).siblings('ul').hasClass("show")) {
+                $(this).siblings('ul').removeClass("show");
+            }
+            else {
+                $(this).siblings('ul').addClass("show");
+            }
+        });
+    });
+</script>

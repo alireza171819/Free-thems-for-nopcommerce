@@ -1,0 +1,79 @@
+﻿@{
+    Layout = "_Root";
+}
+@{
+    //current category ID
+    var currentCategoryId = 0;
+    if (Url.ActionContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.ActionContext.RouteData.Values["action"].ToString().Equals("category", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentCategoryId = Convert.ToInt32(Url.ActionContext.RouteData.Values["categoryId"].ToString());
+    }
+
+
+    //current manufacturer ID
+    var currentManufacturerId = 0;
+    if (Url.ActionContext.RouteData.Values["controller"].ToString().Equals("catalog", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.ActionContext.RouteData.Values["action"].ToString().Equals("manufacturer", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentManufacturerId = Convert.ToInt32(Url.ActionContext.RouteData.Values["manufacturerId"].ToString());
+    }
+
+
+    //current product ID
+    var currentProductId = 0;
+    if (Url.ActionContext.RouteData.Values["controller"].ToString().Equals("product", StringComparison.InvariantCultureIgnoreCase) &&
+        Url.ActionContext.RouteData.Values["action"].ToString().Equals("productdetails", StringComparison.InvariantCultureIgnoreCase))
+    {
+        currentProductId = Convert.ToInt32(Url.ActionContext.RouteData.Values["productId"].ToString());
+    }
+}
+@if (IsSectionDefined("breadcrumb"))
+{
+    @RenderSection("breadcrumb")
+}
+<div class="leftside-3">
+    @if (IsSectionDefined("left"))
+    {
+        @RenderSection("left")
+    }
+    else
+    {
+        @await Component.InvokeAsync("Widget", new { widgetZone = "left_side_column_before" })
+        if (IsSectionDefined("productfiltering"))
+        {
+            <div class="block">
+                <div class="title">
+                    <strong><span>@T("NopWired.ShopBy")</span></strong>
+                </div>
+                <div class="listbox">
+                    @RenderSection("productfiltering")
+                </div>
+            </div>
+        }
+        @await Component.InvokeAsync("CategoryNavigation", new { currentCategoryId = currentCategoryId, currentProductId = currentProductId })
+        @await Component.InvokeAsync("Widget", new { widgetZone = "left_side_column_after_category_navigation" })
+        @await Component.InvokeAsync("ManufacturerNavigation", new { currentManufacturerId = currentManufacturerId })
+        @await Component.InvokeAsync("VendorNavigation")
+        @await Component.InvokeAsync("PopularProductTags")
+        @await Component.InvokeAsync("PollBlock", new { systemKeyword = "LeftColumnPoll" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = "left_side_column_after" })
+    }
+</div>
+<div class="rightside-3">
+    @if (IsSectionDefined("right"))
+    {
+        @RenderSection("right")
+    }
+    else
+    {
+        @await Component.InvokeAsync("FlyoutShoppingCart")
+        @await Component.InvokeAsync("RecentlyViewedProductsBlock", new { productThumbPictureSize = 32 })
+        @await Component.InvokeAsync("PollBlock", new { systemKeyword = "RightColumnPoll" })
+    }
+</div>
+<div class="center-3">
+    @await Component.InvokeAsync("Widget", new { widgetZone = "main_column_before" })
+    @RenderBody()
+    @await Component.InvokeAsync("Widget", new { widgetZone = "main_column_after" })
+</div>

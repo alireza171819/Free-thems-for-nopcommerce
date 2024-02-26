@@ -1,0 +1,86 @@
+﻿@model ProductsByTagModel
+@{
+    Layout = "~/Views/Shared/_ColumnsThree.cshtml";
+
+    //title
+    Html.AddTitleParts(string.Format(T("PageTitle.ProductsByTag").Text, Model.TagName));
+
+    //canonical URL
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var productsByTagUrl = Url.RouteUrl("ProductsByTag", new { productTagId = Model.Id, SeName = Model.TagSeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productsByTagUrl);
+    }
+}
+@using Nop.Core.Domain.Seo
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+
+<div class="page product-tag-page">
+    <div class="page-title">
+        <h1>@String.Format(T("Products.Tags.ProductsTaggedWith").Text, Model.TagName)</h1>
+    </div>
+    <div class="page-body">
+        @Html.Widget("productsbytag_top", Model.Id)
+        @if (Model.Products.Count > 0)
+        {
+            @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+        }
+        @Html.Widget("productsbytag_before_product_list", Model.Id)
+        @*product list*@
+        @if (Model.Products.Count > 0)
+        {
+            if (Model.PagingFilteringContext.ViewMode == "list")
+            {
+                @*list mode*@
+                <div class="product-list">
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="item-box">
+                            @Html.Partial("_ProductBox", product)
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                @*grid mode*@
+                <div class="product-grid">
+                    @for (var i = 0; i < Model.Products.Count(); i++)
+                    {
+                        var product = Model.Products[i];
+                        string lastitem = "";
+
+                        if (i % 2 == 0)
+                        {
+                            lastitem = "odd";
+                        }
+                        else
+                        {
+                            lastitem = "even";
+                        }
+
+                        <div class="item-box @lastitem">
+                            @Html.Partial("_ProductBox", product)
+                        </div>
+                    }
+                </div>
+            }
+        }
+        @if (Model.Products.Count > 0)
+        {
+            @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+        }
+        @{
+            var pager = Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber");
+        }
+        @if (!pager.IsEmpty())
+        {
+            <div class="pager">
+                @pager
+            </div>
+        }
+        @Html.Widget("productsbytag_bottom", Model.Id)
+    </div>
+</div>

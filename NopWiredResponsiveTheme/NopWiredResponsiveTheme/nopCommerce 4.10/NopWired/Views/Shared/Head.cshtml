@@ -1,0 +1,28 @@
+﻿@using Nop.Core
+@using Nop.Services.Helpers
+@using Nop.Web.Framework.UI
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@inject IUserAgentHelper userAgentHelper
+@{
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+    var themeName = themeContext.WorkingThemeName;
+    var isIe8 = userAgentHelper.IsIe8();
+
+    //Google Fonts
+    <link href='//fonts.googleapis.com/css?family=Roboto+Slab:400,700' rel='stylesheet' type='text/css'>
+
+    //responsive design
+    Html.AppendCssFileParts($"~/Themes/{themeName}/Content/responsive.css");
+
+    Html.AppendCssFileParts($"~/Themes/{themeName}/Content/styles.css");
+    Html.AddCssFileParts($"~/Themes/{themeName}/Content/owl.carousel.css");
+    Html.AddCssFileParts($"~/Themes/{themeName}/Content/ColorScheme/black.css");
+
+    //add jQuery UI css file
+    Html.AppendCssFileParts("~/lib/jquery-ui/jquery-ui-1.12.1.custom/jquery-ui.min.css");
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+}

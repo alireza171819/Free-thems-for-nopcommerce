@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "_HomePageRoot";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+}
+<div class="page home-page">
+    <div class="page-body">
+        <section>
+            @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_top" })
+        </section>
+        <section>
+            <div class="container">
+                @await Component.InvokeAsync("TopicBlock", new { systemName = "HomePageText" })
+            </div>
+        </section>
+        <section class="section-gray">
+            <div class="container">
+                @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_categories" })
+                @await Component.InvokeAsync("HomepageCategories")
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                @await Component.InvokeAsync("HomepageProducts")
+                @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_products" })
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_best_sellers" })
+                @await Component.InvokeAsync("HomepageBestSellers")
+            </div>
+        </section>
+
+        <section class="section-gray">
+            <div class="container">
+                @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_news" })
+                @await Component.InvokeAsync("HomepageNews")
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_poll" })
+                @await Component.InvokeAsync("HomepagePolls")
+            </div>
+        </section>
+        @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_bottom" })
+    </div>
+</div>

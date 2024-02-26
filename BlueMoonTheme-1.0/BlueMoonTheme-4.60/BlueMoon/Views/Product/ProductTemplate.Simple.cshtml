@@ -1,0 +1,241 @@
+﻿@model ProductDetailsModel
+
+@using Nop.Core
+@using Nop.Core.Domain.Catalog
+@using Nop.Core.Domain.Seo
+@using Nop.Services.Html
+
+@inject IHtmlFormatter htmlFormatter
+@inject IWebHelper webHelper
+@inject SeoSettings seoSettings
+
+@{
+    Layout = "_ColumnsOne";
+
+    //title
+    NopHtml.AddTitleParts(!string.IsNullOrEmpty(Model.MetaTitle) ? Model.MetaTitle : Model.Name);
+    //meta
+    NopHtml.AddMetaDescriptionParts(Model.MetaDescription);
+    NopHtml.AddMetaKeywordParts(Model.MetaKeywords);
+    //page class
+    NopHtml.AppendPageCssClassParts("html-product-details-page");
+
+    //canonical URL
+    if (seoSettings.CanonicalUrlsEnabled)
+    {
+        var productUrl = Url.RouteUrl<Product>(new { SeName = Model.SeName }, webHelper.GetCurrentRequestProtocol()).ToLowerInvariant();
+        NopHtml.AddCanonicalUrlParts(productUrl, seoSettings.QueryStringInCanonicalUrlsEnabled);
+    }
+
+    //open graph META tags
+    if (seoSettings.OpenGraphMetaTags)
+    {
+        NopHtml.AddHeadCustomParts("<meta property=\"og:type\" content=\"product\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:description\" content=\"" + Html.Encode(htmlFormatter.StripTags(Model.MetaDescription)) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:image:url\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:url\" content=\"" + webHelper.GetThisPageUrl(false) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"og:site_name\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+    }
+
+    //Twitter META tags
+    if (seoSettings.TwitterMetaTags)
+    {
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:card\" content=\"summary\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:site\" content=\"" + Html.Encode(Model.CurrentStoreName) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:title\" content=\"" + Html.Encode(Model.Name) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:description\" content=\"" + Html.Encode(htmlFormatter.StripTags(Model.MetaDescription)) + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:image\" content=\"" + Model.DefaultPictureModel.ImageUrl + "\" />");
+        NopHtml.AddHeadCustomParts("<meta property=\"twitter:url\" content=\"" + webHelper.GetThisPageUrl(false) + "\" />");
+    }
+}
+<!--product breadcrumb-->
+@section Breadcrumb
+{
+    @await Html.PartialAsync("_ProductBreadcrumb", Model.Breadcrumb)
+}
+@await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsAfterBreadcrumb, additionalData = Model })
+<div class="master-wrapper-content"> 
+
+<div class="page product-details-page">
+    <div class="page-body">
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsTop, additionalData = Model })
+        <form asp-route="Product" asp-route-sename="@Model.SeName" method="post" id="product-details-form">
+            @if (seoSettings.MicrodataEnabled)
+            {
+                @await Html.PartialAsync("_Microdata", Model)
+            }
+            <div data-productid="@Model.Id">
+                <div class="product-essential">
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsEssentialTop, additionalData = Model })
+                    <div class="gallery">
+                        <!--product pictures-->
+                        @await Html.PartialAsync("_ProductDetailsPictures", Model)
+                        <!--product videos-->
+                        @await Html.PartialAsync("_ProductDetailsVideos", Model)
+                    </div>
+                    <div class="overview">
+                        @await Html.PartialAsync("_Discontinued", Model)
+                        <div class="product-name">
+                            <h1>
+                                @Model.Name
+                            </h1>
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.ShortDescription))
+                        {
+                            <div class="short-description">
+                                @Html.Raw(Model.ShortDescription)
+                            </div>
+                        }
+                        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsOverviewTop, additionalData = Model })
+                        <!--product reviews-->
+                        @await Html.PartialAsync("_ProductReviewOverview", Model.ProductReviewOverview)
+                        <!--manufacturers-->
+                        @await Html.PartialAsync("_ProductManufacturers", Model.ProductManufacturers)
+                        <!--availability-->
+                        @await Html.PartialAsync("_Availability", Model)
+                        <!--SKU, MAN, GTIN, vendor-->
+                        @await Html.PartialAsync("_SKU_Man_GTIN_Ven", Model)
+                        <!--delivery-->
+                        @await Html.PartialAsync("_DeliveryInfo", Model)
+                        <!--sample download-->
+                        @await Html.PartialAsync("_DownloadSample", Model)
+                        <!--attributes-->
+                        @{
+                            var dataDictAttributes = new ViewDataDictionary(ViewData);
+                            dataDictAttributes.TemplateInfo.HtmlFieldPrefix = $"attributes_{Model.Id}";
+                            @await Html.PartialAsync("_ProductAttributes", Model, dataDictAttributes)
+                        }
+                        <!--gift card-->
+                        @{
+                            var dataDictGiftCard = new ViewDataDictionary(ViewData);
+                            dataDictGiftCard.TemplateInfo.HtmlFieldPrefix = $"giftcard_{Model.Id}";
+                            @await Html.PartialAsync("_GiftCardInfo", Model.GiftCard, dataDictGiftCard)
+                        }
+                        <!--rental info-->
+                        @{
+                            var dataDictRental = new ViewDataDictionary(ViewData);
+                            dataDictRental.TemplateInfo.HtmlFieldPrefix = $"rental_{Model.Id}";
+                            @await Html.PartialAsync("_RentalInfo", Model, dataDictRental)
+                        }
+                        <!--price & add to cart & estimate shipping-->
+                        @{
+                            var dataDictPrice = new ViewDataDictionary(ViewData);
+                            dataDictPrice.TemplateInfo.HtmlFieldPrefix = $"price_{Model.Id}";
+                            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductPriceTop, additionalData = Model })
+                            @await Html.PartialAsync("_ProductPrice", Model.ProductPrice, dataDictPrice)
+                            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductPriceBottom, additionalData = Model })
+
+                            @await Html.PartialAsync("_ProductTierPrices", Model.TierPrices)
+
+                            var dataDictAddToCart = new ViewDataDictionary(ViewData);
+                            dataDictAddToCart.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+                            @await Html.PartialAsync("_AddToCart", Model.AddToCart, dataDictAddToCart)
+
+                            @await Html.PartialAsync("_ProductEstimateShipping", Model.ProductEstimateShipping)
+                        }
+                        <!--wishlist, compare, email a friend-->
+                        <div class="overview-buttons">
+                            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsBefore, additionalData = Model })
+                            @{
+                                var dataDictAddToWishlist = new ViewDataDictionary(ViewData);
+                                dataDictAddToWishlist.TemplateInfo.HtmlFieldPrefix = $"addtocart_{Model.Id}";
+                                @await Html.PartialAsync("_AddToWishlist", Model.AddToCart, dataDictAddToWishlist)
+                            }
+                            @await Html.PartialAsync("_CompareProductsButton", Model)
+                            @await Html.PartialAsync("_ProductEmailAFriendButton", Model)
+                            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsInsideOverviewButtonsAfter, additionalData = Model })
+                        </div>
+                        @await Html.PartialAsync("_ShareButton", Model)
+                        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsOverviewBottom, additionalData = Model })
+                    </div>
+                    @if (!string.IsNullOrEmpty(Model.FullDescription))
+                    {
+                        <div class="full-description">
+                            @Html.Raw(Model.FullDescription)
+                        </div>
+                    }
+                    @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsEssentialBottom, additionalData = Model })
+                </div>
+                @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBeforeCollateral, additionalData = Model })
+                <div class="product-collateral">
+                    @await Html.PartialAsync("_ProductSpecifications", Model.ProductSpecificationModel)
+                    @await Html.PartialAsync("_ProductTags", Model.ProductTags)
+                </div>
+                @await Component.InvokeAsync(typeof(ProductsAlsoPurchasedViewComponent), new { productId = Model.Id })
+                @await Component.InvokeAsync(typeof(RelatedProductsViewComponent), new { productId = Model.Id })
+            </div>
+        </form>
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBottom, additionalData = Model })
+    </div>
+</div>
+</div>
+
+
+
+
+
+ <script src="js/Product.Footer.scripts5aea.js?v=7MZ-7FIohSue7oMITAf5VWqNWtg"></script>
+    <script src="lib_npm/magnific-popup/jquery.magnific-popup.min4264.js?v=XsgosLC3xGPu8bc1PYyjSiw4PwA"></script>
+    <script src="js/public.estimateshipping.popup6b8e.js?v=kxWSkinHj8cY6zPtDdLsjeM5vVU"></script>
+    <script>$(document).ready(function () { $(".picture-thumbs").magnificPopup({ type: "image", delegate: "a", removalDelay: 300, gallery: { enabled: !0, navigateByImgClick: !0, preload: [0, 1], tPrev: "Previous (Left arrow key)", tNext: "Next (Right arrow key)", tCounter: "%curr% of %total%" }, tClose: "Close (Esc)", tLoading: "Loading..." }) })</script>
+    <script>$(document).ready(function () { $(".thumb-item > img").on("click", function () { $("#main-product-img-4").attr("src", $(this).attr("data-defaultsize")); $("#main-product-img-4").attr("title", $(this).attr("title")); $("#main-product-img-4").attr("alt", $(this).attr("alt")); $("#main-product-img-lightbox-anchor-4").attr("href", $(this).attr("data-fullsize")); $("#main-product-img-lightbox-anchor-4").attr("title", $(this).attr("title")) }) })</script>
+    <script>$(document).on("product_attributes_changed", function (n) { n.changedData.isFreeShipping ? $("#free-shipping-" + n.changedData.productId).removeClass("invisible") : $("#free-shipping-" + n.changedData.productId).addClass("invisible") })</script>
+    <script>$(document).ready(function () { $("#addtocart_4_EnteredQuantity").on("keydown", function (n) { if (n.keyCode == 13) return $("#add-to-cart-button-4").trigger("click"), !1 }); $("#product_enteredQuantity_4").on("input propertychange paste", function () { var n = { productId: 4, quantity: $("#product_enteredQuantity_4").val() }; $(document).trigger({ type: "product_quantity_changed", changedData: n }) }) })</script>
+    <script>$(document).ready(function () { var n = {}, t = !1, u = !1, f = { opener: "#open-estimate-shipping-popup-4", form: "#product-details-form", contentEl: "#estimate-shipping-popup-4", countryEl: "#CountryId", stateProvinceEl: "#StateProvinceId", zipPostalCodeEl: "#ZipPostalCode", useCity: !0, cityEl: "#City", requestDelay: 300, localizedData: { noShippingOptionsMessage: "No shipping options", countryErrorMessage: "Country is required", zipPostalCodeErrorMessage: "Zip / postal code is required", cityErrorMessage: "City is required" }, urlFactory: function (n) { var t = $.param({ CountryId: n.countryId, StateProvinceId: n.stateProvinceId, ZipPostalCode: n.zipPostalCode, City: n.city }); return "/product/estimateshipping?ProductId=4&" + t }, handlers: { openPopUp: function () { if (t) { var i = n.getShippingAddress(); n.validateAddress(i) ? n.getShippingOptions(i) : n.clearShippingOptions(); t = !1 } }, load: function () { if (!$.magnificPopup.instance.isOpen) { var n = $("<div/>").addClass("shipping-title").append($("<span/>").addClass("shipping-price-title").text("Shipping:")).append($("<span/>").addClass("shipping-loading")); $("#open-estimate-shipping-popup-4").html(n) } }, success: function () { var t = n.getActiveShippingOption(); n.selectShippingOption(t); u = !0; n.settings.handlers.success = undefined }, error: function () { n.selectShippingOption() }, selectedOption: function (t) { var i, u, r; t && t.provider && t.price && n.validateAddress(t.address) ? (i = $("#open-estimate-shipping-popup-4"), u = $("<div/>").addClass("shipping-title").append($("<span/>").addClass("shipping-price-title").text("Shipping:")).append($("<span/>").addClass("shipping-price").text(t.price)), i.html(u), r = $("<div/>").addClass("estimated-delivery").append($("<div/>").addClass("shipping-address").append($("<span/>").text("to " + t.address.countryName + ", " + (t.address.stateProvinceName ? t.address.stateProvinceName + ", " : "") + (n.settings.useCity ? t.address.city : t.address.zipPostalCode) + " via " + t.provider)).append($("<i/>").addClass("arrow-down"))), t.deliveryDate && t.deliveryDate !== "-" && r.append($("<div/>").addClass("shipping-date").text("Estimated Delivery on " + t.deliveryDate)), i.append(r)) : $("#open-estimate-shipping-popup-4").html($("<span/>").text("Please select the address you want to ship to")).append($("<i/>").addClass("arrow-down")) } } }, i, r; n = createEstimateShippingPopUp(f); n.init(); i = function () { var t = n.getShippingAddress(); n.validateAddress(t) ? n.getShippingOptions(t) : n.selectShippingOption() }; i(); r = function (r) { var o = r.changedData.productId, f, e; o === 4 && (n.params.selectedShippingOption ? (f = n.params.selectedShippingOption.address, e = n.getShippingAddress(), n.addressesAreEqual(f, e) || (t = !0), n.getShippingOptions(f)) : u ? t = !0 : i()) }; setTimeout(function () { $(document).on("product_attributes_changed", r) }, 500); $(document).on("product_quantity_changed", r) })</script>
+    <script>$(document).ready(function () { $(".header").on("mouseenter", "#topcartlink", function () { $("#flyout-cart").addClass("active") }); $(".header").on("mouseleave", "#topcartlink", function () { $("#flyout-cart").removeClass("active") }); $(".header").on("mouseenter", "#flyout-cart", function () { $("#flyout-cart").addClass("active") }); $(".header").on("mouseleave", "#flyout-cart", function () { $("#flyout-cart").removeClass("active") }) })</script>
+    <script>$("#small-search-box-form").on("submit", function (n) { $("#small-searchterms").val() == "" && (alert("Please enter some search keyword"), $("#small-searchterms").focus(), n.preventDefault()) })</script>
+    <script>$(document).ready(function () { var n, t; $("#small-searchterms").autocomplete({ delay: 500, minLength: 3, source: "/catalog/searchtermautocomplete", appendTo: ".search-box", select: function (n, t) { return $("#small-searchterms").val(t.item.label), setLocation(t.item.producturl), !1 }, open: function () { n && (t = document.getElementById("small-searchterms").value, $(".ui-autocomplete").append('<li class="ui-menu-item" role="presentation"><a href="/search?q=' + t + '">View all results...<\/a><\/li>')) } }).data("ui-autocomplete")._renderItem = function (t, i) { var r = i.label; return n = i.showlinktoresultsearch, r = htmlEncode(r), $("<li><\/li>").data("item.autocomplete", i).append("<a><img src='" + i.productpictureurl + "'><span>" + r + "<\/span><\/a>").appendTo(t) } })</script>
+    <script>var localized_data = { AjaxCartFailure: "Failed to add the product. Please refresh the page and try one more time." }; AjaxCart.init(!1, ".header-links .cart-qty", ".header-links .wishlist-qty", "#flyout-cart", localized_data)</script>
+    <script>$(document).ready(function () { $(".menu-toggle").on("click", function () { $(this).siblings(".top-menu.mobile").slideToggle("slow") }); $(".top-menu.mobile .sublist-toggle").on("click", function () { $(this).siblings(".sublist").slideToggle("slow") }) })</script>
+    <script>function newsletter_subscribe(n) { var i = $("#subscribe-loading-progress"), t; i.show(); t = { subscribe: n, email: $("#newsletter-email").val() }; addAntiForgeryToken(t); $.ajax({ cache: !1, type: "POST", url: "/subscribenewsletter", data: t, success: function (n) { $("#newsletter-result-block").html(n.Result); n.Success ? ($("#newsletter-subscribe-block").hide(), $("#newsletter-result-block").show()) : $("#newsletter-result-block").fadeIn("slow").delay(2e3).fadeOut("slow") }, error: function () { alert("Failed to subscribe.") }, complete: function () { i.hide() } }) } $(document).ready(function () { $("#newsletter-subscribe-button").on("click", function () { newsletter_subscribe("true") }); $("#newsletter-email").on("keydown", function (n) { if (n.keyCode == 13) return $("#newsletter-subscribe-button").trigger("click"), !1 }) })</script>
+    <script>$(document).ready(function () { $(".footer-block .title").on("click", function () { var n = window, t = "inner", i; "innerWidth" in window || (t = "client", n = document.documentElement || document.body); i = { width: n[t + "Width"], height: n[t + "Height"] }; i.width < 769 && $(this).siblings(".list").slideToggle("slow") }) })</script>
+    <script>$(document).ready(function () { $(".block .title").on("click", function () { var n = window, t = "inner", i; "innerWidth" in window || (t = "client", n = document.documentElement || document.body); i = { width: n[t + "Width"], height: n[t + "Height"] }; i.width < 1001 && $(this).siblings(".listbox").slideToggle("slow") }) })</script>
+    <script>
+        var langArray = [];
+        $('.vodiapicker option').each(function () {
+            var img = $(this).attr("data-thumbnail");
+            var text = this.innerText;
+            var value = $(this).val();
+            var item = '<li><img src="' + img + '" alt="" value="' + value + '"/><span>' + text +
+                '</span></li>';
+            langArray.push(item);
+        })
+
+        $('#lang-none').html(langArray);
+
+        //Set the button value to the first el of the array
+        $('.btn-select').html(langArray[0]);
+        $('.btn-select').attr('value', 'en');
+
+        //change button stuff on click
+        $('#lang-none li').click(function () {
+            var img = $(this).find('img').attr("src");
+            var value = $(this).find('img').attr('value');
+            var text = this.innerText;
+            var item = '<li><img src="' + img + '" alt="" /><span>' + text + '</span></li>';
+            $('.btn-select').html(item);
+            $('.btn-select').attr('value', value);
+            $(".lang-all").toggle();
+            //console.log(value);
+        });
+
+        $(".btn-select").click(function () {
+            $(".lang-all").toggle();
+        });
+
+        //check local storage for the lang
+        var sessionLang = localStorage.getItem('lang');
+        if (sessionLang) {
+            //find an item with value of sessionLang
+            var langIndex = langArray.indexOf(sessionLang);
+            $('.btn-select').html(langArray[langIndex]);
+            $('.btn-select').attr('value', sessionLang);
+        } else {
+            var langIndex = langArray.indexOf('ch');
+            console.log(langIndex);
+            $('.btn-select').html(langArray[langIndex]);
+            //$('.btn-select').attr('value', 'en');
+        }
+    </script>

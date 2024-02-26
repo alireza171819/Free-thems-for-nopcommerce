@@ -1,0 +1,20 @@
+﻿@model IList<ProductOverviewModel>
+
+@using Nop.Web.Models.Catalog;
+@if (Model.Count > 0)
+{
+    <div class="block related-products-block">
+        <div class="title">
+            <strong>@T("Products.RelatedProducts")</strong>
+        </div>
+        <div class="listbox">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                <div class="item @(i == 0 ? "first" : null)">
+                    @Html.Partial("_RelatedProductBox", item)
+                </div>
+            }
+        </div>
+    </div>
+}

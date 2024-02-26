@@ -1,0 +1,36 @@
+﻿<nav class="top-menu" role="navigation">
+    <div class="headerlinks">
+        @Html.Widget("header")
+        @Html.Action("HeaderLinks", "Common")
+    </div>
+</nav>
+<div class="header">
+    <div class="row">
+        <div class="col-sm-5 col-md-5">
+            @Html.Widget("header")
+            <div class="header-logo">
+                @Html.Action("Logo", "Common")
+            </div>
+        </div>
+        <div class="col-sm-7 col-md-7">
+            <div class="header-selectors-wrapper">
+                <div class="search-box store-search-box pull-right">
+                    @Html.Action("SearchBox", "Catalog")
+                </div>
+                <div class="header-selectors">
+                    @*<div class="taxtype-selector">
+                        @Html.Action("TaxTypeSelector", "Common")
+                    </div>*@
+                    <div class="currency-selector">
+                        @Html.Action("CurrencySelector", "Common")
+                    </div>
+                    <div class="language-selector">
+                        @Html.Action("LanguageSelector", "Common")
+                    </div>
+                    @Html.Widget("header_selectors")
+                </div>
+            </div>
+        </div>
+     </div>
+</div>
+

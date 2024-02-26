@@ -1,0 +1,54 @@
+﻿@model ProductDetailsModel.GiftCardModel
+
+@if (Model.IsGiftCard)
+{
+    <div class="giftcard">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label class= "control-label" asp-for="RecipientName"></label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="RecipientName" class="recipient-name form-control" />
+                </div>
+            </div>
+
+            @if (Model.GiftCardType == Nop.Core.Domain.Catalog.GiftCardType.Virtual)
+            {
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="control-label" asp-for="RecipientEmail"></label>
+                    </div>
+                    <div class="col-md-5">
+                        <input asp-for="RecipientEmail" class="recipient-email form-control" />
+                    </div>
+                </div>
+            }
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label class="control-label" asp-for="SenderName"></label>
+                </div>
+                <div class="col-md-5">
+                    <input asp-for="SenderName" class="sender-name form-control" />
+                </div> 
+            </div>
+            @if (Model.GiftCardType == Nop.Core.Domain.Catalog.GiftCardType.Virtual)
+            {
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label class="control-label" asp-for="SenderEmail"></label>
+                    </div>
+                    <div class="col-md-5">
+                        <input asp-for="SenderEmail" class="sender-email form-control" />
+                    </div>           
+                </div>
+            }
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label asp-for="Message" class="control-label"></label>
+                </div>
+                <div class="col-md-5">
+                    <textarea asp-for="Message" class="message form-control"></textarea>
+                </div>
+            </div>
+    </div>
+}       

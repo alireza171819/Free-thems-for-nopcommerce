@@ -1,0 +1,284 @@
+﻿@*// *************************************************************************
+    // *                                                                       *
+    // * nopAccelerate - nopAccelerate REST Web Services API Plugin           *
+    // * Copyright (c) Xcellence-IT. All Rights Reserved.                      *
+    // *                                                                       *
+    // *************************************************************************
+    // *                                                                       *
+    // * Email: info@nopaccelerate.com                                         *
+    // * Website: http://www.nopaccelerate.com                                 *
+    // *                                                                       *
+    // *************************************************************************
+    // *                                                                       *
+    // * This  software is furnished  under a license  and  may  be  used  and *
+    // * modified  only in  accordance with the terms of such license and with *
+    // * the  inclusion of the above  copyright notice.  This software or  any *
+    // * other copies thereof may not be provided or  otherwise made available *
+    // * to any  other  person.   No title to and ownership of the software is *
+    // * hereby transferred.                                                   *
+    // *                                                                       *
+    // * You may not reverse  engineer, decompile, defeat  license  encryption *
+    // * mechanisms  or  disassemble this software product or software product *
+    // * license.  Xcellence-IT may terminate this license if you don't comply *
+    // * with  any  of  the  terms and conditions set forth in  our  end  user *
+    // * license agreement (EULA).  In such event,  licensee  agrees to return *
+    // * licensor  or destroy  all copies of software  upon termination of the *
+    // * license.                                                              *
+    // *                                                                       *
+    // * Please see the  License file for the full End User License Agreement. *
+    // * The  complete license agreement is also available on  our  website at *
+    // * http://www.nopaccelerate.com/enterprise-license                       *
+    // *                                                                       *
+    // **************************************************************************@
+
+@{
+    Layout = "";
+}
+
+@using Nop.Plugin.XcellenceIt.BootswatchTheme.Models;
+@model BootswatchThemeConfigurationModel
+@using Nop.Web.Framework;
+@Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+
+<!-- CSS files  -->
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/ace.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/theme-twilight.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/mode-css.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/worker-css.js"></script>
+<script src="~/Plugins/XcellenceIt.BootswatchTheme/Content/ace/jquery-ace.min.js"></script>
+
+<!-- CSS Files-->
+<link href="~/Plugins/XcellenceIt.BootswatchTheme/Content/css/bootswatch_admin.css" rel="stylesheet" type="text/css" />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    if (!@Model.IsLicenseActive)
+    {
+        <div class="form-horizontal">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @MvcHtmlString.Create(@Model.RegistrationForm)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        @Html.Action("StoreScopeConfiguration", "Setting", new { area = "Admin" })
+
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @MvcHtmlString.Create(@Model.LicenseInformation)
+                </div>
+            </div>
+        </div>
+
+        if (ViewBag.RefreshPage == true)
+        {
+            <script type="text/javascript">
+                try {window.opener.document.forms['@(ViewBag.formId)'].@(ViewBag.btnId).click();}
+                catch (e){}
+                window.opener.location.reload();
+                window.close();
+            </script>
+        }
+
+        <div class="raw clearfix">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!-- Plugin Enable/Disable-->
+                        <div class="form-group">
+                            <div class="content-header clearfix">
+                                <div class="pull-right">
+                                    <input type="submit" name="save" class="btn bg-blue" value="@T("Admin.Common.Save")" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.BootswatchThemeEnabled, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.BootswatchThemeEnabled)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.BootswatchThemeEnabled)
+                            </div>
+                        </div>
+
+                        <!-- Color Swatch-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.ColorSwatch, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.ColorSwatch)
+                            </div>
+                            <div class="col-md-9">
+                                <div class="config-wrapper">
+                                    @foreach (var colorSwatch in Model.BootswatchThemeList)
+                                    {
+                                        <div class="radio-inline @(Model.ColorSwatch == colorSwatch.Text ? "active" : "")">
+                                            <span class="ColorSwatch-before" style="border-color:#@colorSwatch.BorderColorCode"></span>
+                                            <input value="@colorSwatch.Text" name="ColorSwatch" id="ColorSwatch-@colorSwatch.PrimaryColorCode" type="radio" checked='@(Model.ColorSwatch == colorSwatch.Text ? true : false)'>
+                                            <label for="ColorSwatch-@colorSwatch.PrimaryColorCode" class="ColorSwatch-color" style="background-color: #@colorSwatch.PrimaryColorCode;">
+                                            </label>
+                                            <label for="ColorSwatch-@colorSwatch.PrimaryColorCode">
+                                                @colorSwatch.Text
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <script>
+                                    $('.radio-inline').click(function () {
+                                        $('.radio-inline').removeClass('active');
+                                        $(this).addClass('active').find('input').prop('checked', true)
+                                    });
+
+                                </script>
+                            </div>
+                        </div>
+
+                        <!-- Meta tag-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.NopLabelFor(model => model.MetaTags)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopTextAreaFor(model => model.MetaTags)
+                            </div>
+                        </div>
+
+                        <!-- Remove Copy Right/ Power by -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.RemoveCopyRight, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.RemoveCopyRight)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.RemoveCopyRight)
+                            </div>
+                        </div>
+
+                        <!-- Remove Copy Designed by -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.RemoveThemeBy, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.RemoveThemeBy)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.RemoveThemeBy)
+                            </div>
+                        </div>
+
+                        <!-- Logo -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, "logo-block", Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.LogoPictureId)
+                            </div>
+                            <div class="col-md-9" id="logo-block">
+                                @Html.NopEditorFor(model => model.LogoPictureId)
+                            </div>
+                        </div>
+
+                        <!-- Social Media -->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.NewsEnabled, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.NewsEnabled)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.NewsEnabled)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.GooglePlusLink, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.GooglePlusLink)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.GooglePlusLink)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.YoutubeLink, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.YoutubeLink)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.YoutubeLink)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.FacebookLink, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.FacebookLink)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.FacebookLink)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.TwitterLink, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.TwitterLink)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.TwitterLink)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.pinterestUrl, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.pinterestUrl)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.pinterestUrl)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.instagramUrl, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.instagramUrl)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.instagramUrl)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.vimeoUrl, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.vimeoUrl)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopEditorFor(model => model.vimeoUrl)
+                            </div>
+                        </div>
+
+                        <!-- CSS Editor-->
+                        <div class="form-group">
+                            <div class="col-md-3">
+                                @Html.OverrideStoreCheckboxFor(model => model.BootswatchTheme_OverrideForStore, model => model.CustomCss, Model.ActiveStoreScopeConfiguration)
+                                @Html.NopLabelFor(model => model.CustomCss)
+                            </div>
+                            <div class="col-md-9">
+                                @Html.NopTextAreaFor(model => model.CustomCss, new { @class = "custom-css-area" })
+                                <br />
+                                <label for="instagramUrl" title="">@T("Nop.Plugin.XcellenceIt.BootswatchTheme.Fields.CustomCss.Notes")</label>
+                            </div>
+                        </div>
+
+                        <script>
+                            $('.custom-css-area').ace({ theme: 'twilight', lang: 'css', height: '200px', mode: 'css' })
+                        </script>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

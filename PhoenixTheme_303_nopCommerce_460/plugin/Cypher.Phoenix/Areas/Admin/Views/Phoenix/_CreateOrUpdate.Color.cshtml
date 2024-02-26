@@ -1,0 +1,50 @@
+﻿@model ConfigurationModel
+@{
+    NopHtml.AppendScriptParts(ResourceLocation.Footer,"~/lib_npm/farbstastic/farbtastic.min.js");
+    NopHtml.AddCssFileParts("~/lib_npm/farbstastic/farbtastic.css");
+
+    //pre-set some color (required for farbtastic)
+    if (string.IsNullOrEmpty(Model.Color1))
+    {
+        Model.Color1 = "#ffffff";
+    }
+    if (string.IsNullOrEmpty(Model.Color2))
+    {
+        Model.Color2 = "#ffffff";
+    }
+}
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Color1_OverrideForStore" asp-input="Color1" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Color1" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Color1" />
+            <div id="color1-picker"></div>
+            <script>
+                $(document).ready(function(){
+                    $('#color1-picker').farbtastic('#@Html.IdFor(model => model.Color1)');
+                });
+            </script>
+            <span asp-validation-for="Color1"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Color2_OverrideForStore" asp-input="Color2" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Color2" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Color2" />
+            <div id="color2-picker"></div>
+            <script>
+                $(document).ready(function(){
+                    $('#color2-picker').farbtastic('#@Html.IdFor(model => model.Color2)');
+                });
+            </script>
+            <span asp-validation-for="Color2"></span>
+        </div>
+    </div>
+</div>

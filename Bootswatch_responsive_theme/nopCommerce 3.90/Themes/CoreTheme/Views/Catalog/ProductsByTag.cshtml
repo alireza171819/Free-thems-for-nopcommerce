@@ -1,0 +1,54 @@
+﻿@model ProductsByTagModel
+@{
+    Layout = "~/Views/Shared/_ColumnsTwo.cshtml";
+
+    //title
+    Html.AddTitleParts(string.Format(T("PageTitle.ProductsByTag").Text, Model.TagName));
+    //page class
+    Html.AppendPageCssClassParts("html-product-tag-page");
+    
+    //canonical URL
+    var canonicalUrlsEnabled = EngineContext.Current.Resolve<SeoSettings>().CanonicalUrlsEnabled;
+    if (canonicalUrlsEnabled)
+    {
+        var productsByTagUrl = Url.RouteUrl("ProductsByTag", new { productTagId = Model.Id, SeName = Model.TagSeName }, this.Request.Url.Scheme);
+        Html.AddCanonicalUrlParts(productsByTagUrl);
+    }
+}
+@using Nop.Core.Domain.Seo
+@using Nop.Core.Infrastructure
+@using Nop.Web.Models.Catalog;
+<div class="page product-tag-page from-panel">
+    <div class="page-title panel-heading">
+        <h1>@String.Format(T("Products.Tags.ProductsTaggedWith").Text, Model.TagName)</h1>
+    </div>
+    <div class="page-body panel-body">
+        @Html.Widget("productsbytag_top", Model.Id)
+        @if (Model.Products.Count > 0)
+        {
+            @Html.Partial("_CatalogSelectors", Model.PagingFilteringContext, new ViewDataDictionary())
+        }
+        @Html.Widget("productsbytag_before_product_list", Model.Id)
+        @*product grid and list*@
+        @if (Model.Products.Count > 0)
+        {
+            <div class="product-grid clearfix">
+                <div class="row">
+                    @foreach (var product in Model.Products)
+                    {
+                        <div class="item-box @(Model.PagingFilteringContext.ViewMode == "list" ? "product-list col-xs-12 col-sm-12 col-md-12 product-align" : "product-grid col-xs-12 col-sm-4 col-md-4 product-align")">
+                            <div class="thumbnail">
+                                @Html.Partial("_ProductBox", product)
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        <div class="pager clearfix">
+            @Html.Pager(Model.PagingFilteringContext).QueryParam("pagenumber")
+        </div>
+        @Html.Widget("productsbytag_bottom", Model.Id)
+    </div>
+</div>
+    

@@ -1,0 +1,14 @@
+﻿@model LogoModel
+@inject PhoenixThemeSettings phoenixSettings
+@inject IPictureService pictureService
+
+@{ 
+    if (phoenixSettings.LogoImageId > 0)
+    {
+        Model.LogoPath = await pictureService.GetPictureUrlAsync(phoenixSettings.LogoImageId);
+    }
+}
+
+<a href="@Url.RouteUrl("Homepage")">
+    <img title="" alt="@Model.StoreName" src="@Model.LogoPath">
+</a>

@@ -1,0 +1,59 @@
+﻿@{
+    Layout = "~/Views/Shared/_Root.cshtml";
+}
+
+<div class="center-1">
+    <div class="page home-page">
+        <div class="page-body">
+            <table class="promo">
+                <tr>
+                    <td class="left">
+                        @Html.Widget("home_page_top")
+                    </td>
+                    <td class="right">
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.Action("TopicBlock", "Topic", new { systemName = "Promo1" })
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    @Html.Action("TopicBlock", "Topic", new { systemName = "Promo2" })
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <table class="subpromo">
+                <tr>
+                    <td>
+                       @Html.Action("TopicBlock", "Topic", new { systemName = "Promo3" })
+                    </td>
+                    <td>
+                        @Html.Action("TopicBlock", "Topic", new { systemName = "Promo4" })
+                    </td>
+                    <td class="last">
+                        @Html.Action("TopicBlock", "Topic", new { systemName = "Brands" })
+                    </td>
+                </tr>
+            </table>
+            <div class="promo-bottom">
+                @Html.Action("TopicBlock", "Topic", new { systemName = "HomePageText" })
+            </div>
+            <div class="featured-social">
+                @Html.Widget("home_page_before_products")
+                <div class="jcarousel-skin-tango">
+                    @Html.Action("HomepageProducts", "Product")
+                </div>
+                @Html.Widget("home_page_before_news")
+                <div class="newsletter">
+                    @Html.Action("NewsletterBox", "Newsletter")
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</div>
+

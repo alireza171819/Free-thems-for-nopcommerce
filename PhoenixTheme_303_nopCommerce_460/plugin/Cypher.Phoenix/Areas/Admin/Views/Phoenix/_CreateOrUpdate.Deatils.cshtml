@@ -1,0 +1,69 @@
+﻿
+<div class='card-body'>
+    <div class='form-group row'>
+        <h3>
+            Sample HomePage Text
+        </h3>
+        @Html.Raw(HttpUtility.HtmlEncode(@"<section class='main_service_section'>
+        <div class='main_service'>
+            <div class='main_service_item'>
+                <span class='pi-free-delivery'>&nbsp;</span>
+                <div class='service_content'>
+                    <h3>Worldwide Delivery</h3>
+                    <p>we ship to over 200 contries &amp; regions and time to time Delivery.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+<div class='main_service'>
+            <div class='main_service_item'>
+                <span class='pi-padlock1'>&nbsp;</span>
+                <div class='service_content'>
+                    <h3>Safe Payement</h3>
+                    <p>Pay with the world's most popular and secure payment methods.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+<div class='main_service'>
+            <div class='main_service_item'>
+                <span class='pi-money-back'>&nbsp;</span>
+                <div class='service_content'>
+                    <h3>Shop With Confidence</h3>
+                    <p>Our Buyer Protection covers your purchase from click to delivery.</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+<div class='main_service'>
+            <div class='main_service_item'>
+                <span class='pi-technical-support-1'>&nbsp;</span>
+                <div class='service_content'>
+                    <h3>24/7 Help center</h3>
+                    <p>Round-the-clock assistance for a smooth shopping experience.</p>
+                </div>
+            </div>
+        </div>
+        </section>"))
+    </div>
+
+    <div class='form-group row'>
+        <h3 style="width: 100%; display: inline-block;">
+            Sample Header Text
+        </h3>
+        <br />
+        @Html.Raw(HttpUtility.HtmlEncode(@"
+                        <div>
+                            <h3>Free Standard Returns</h3>
+                        </div>
+                        <div>
+                            <h3>Free Delivery</h3>
+                        </div>
+                        <div>
+                            <h3>100% Secure Payment</h3>
+                        </div>"))
+    </div>
+</div>

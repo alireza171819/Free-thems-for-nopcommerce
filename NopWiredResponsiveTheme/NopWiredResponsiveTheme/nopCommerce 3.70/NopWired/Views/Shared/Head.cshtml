@@ -1,0 +1,26 @@
+﻿@using Nop.Core;
+@using Nop.Core.Domain
+@using Nop.Core.Infrastructure;
+@using Nop.Web.Framework.UI
+@{
+    var supportRtl = EngineContext.Current.Resolve<IWorkContext>().WorkingLanguage.Rtl;
+
+    //add browser specific CSS files
+    var browser = Request.Browser;
+    if (browser.Browser == "IE" && browser.MajorVersion == 6)
+    {
+        Html.AppendCssFileParts("~/Themes/NopWired/Content/ie6.css");
+    }
+    else if (browser.Browser == "IE" && browser.MajorVersion == 7)
+    {
+        Html.AppendCssFileParts("~/Themes/NopWired/Content/ie7.css");
+    }
+    //responsive design
+
+    Html.AppendCssFileParts("~/Themes/NopWired/Content/responsive.css");  
+   
+    Html.AppendCssFileParts("~/Themes/NopWired/Content/styles.css");        
+    Html.AddCssFileParts("~/Themes/NopWired/Content/ColorScheme/black.css");
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+}

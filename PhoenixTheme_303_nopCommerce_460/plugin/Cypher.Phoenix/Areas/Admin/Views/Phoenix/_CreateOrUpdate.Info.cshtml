@@ -1,0 +1,184 @@
+﻿@model ConfigurationModel
+
+<script>
+
+    $(document).ready(function () {
+        $("#@Html.IdFor(model => model.ShowBestSellerImage)").click(toggleShipping);
+        toggleShipping();
+    });
+
+    function toggleShipping() {
+        if ($('#@Html.IdFor(model => model.ShowBestSellerImage)').is(':checked')) {
+            $('#BestSellerImage').showElement();
+        } else {
+            $('#BestSellerImage').hideElement();
+        }
+    }
+
+</script>
+
+<div class="card-body">
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="Enable_OverrideForStore" asp-input="Enable" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="Enable" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="Enable" />
+            <span asp-validation-for="Enable"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="LogoImageId_OverrideForStore" asp-input="LogoImageId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="LogoImageId" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="LogoImageId" />
+            <span asp-validation-for="LogoImageId"></span>
+        </div>
+    </div>
+    @(await Html.LocalizedEditorAsync<ConfigurationModel, ConfigurationModel.ConfigurationLocalizedModel>("plugin-settings-localized",
+    @<div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="HomePageText_OverrideForStore" asp-input="@Model.Locales[item].HomePageText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="@Model.Locales[item].HomePageText" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="@Model.Locales[item].HomePageText" asp-template="RichEditor"/>
+                <span asp-validation-for="@Model.Locales[item].HomePageText"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="HomePageHeaderText_OverrideForStore" asp-input="@Model.Locales[item].HomePageHeaderText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="@Model.Locales[item].HomePageHeaderText" />
+            </div>
+            <div class="col-md-9">
+                <nop-textarea  asp-for="@Model.Locales[item].HomePageHeaderText"/>
+                <span asp-validation-for="@Model.Locales[item].HomePageHeaderText"></span>
+            </div>
+        </div>
+        <input type="hidden" asp-for="@Model.Locales[item].LanguageId" />
+    </div>
+    ,
+    @<div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="HomePageText_OverrideForStore" asp-input="HomePageText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="HomePageText" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="HomePageText" asp-template="RichEditor"/>
+                <span asp-validation-for="HomePageText"></span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="HomePageHeaderText_OverrideForStore" asp-input="HomePageHeaderText" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="HomePageHeaderText" />
+            </div>
+            <div class="col-md-9">
+                <nop-textarea asp-for="HomePageHeaderText" />
+                <span asp-validation-for="HomePageHeaderText"></span>
+            </div>
+        </div>
+     </div>
+    ,
+    //localizable settings per store (overridden store settings) are not supported yet
+    true
+    ))
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="CustomHeadStyle_OverrideForStore" asp-input="CustomHeadStyle" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="CustomHeadStyle" />
+        </div>
+        <div class="col-md-9">
+            <nop-textarea asp-for="CustomHeadStyle"></nop-textarea>
+            <span asp-validation-for="CustomHeadStyle"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="PinterestURL_OverrideForStore" asp-input="PinterestURL" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="PinterestURL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="PinterestURL" />
+            <span asp-validation-for="PinterestURL"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="VimeoURL_OverrideForStore" asp-input="VimeoURL" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="VimeoURL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="VimeoURL" />
+            <span asp-validation-for="VimeoURL"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="InstagramURL_OverrideForStore" asp-input="InstagramURL" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="InstagramURL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="InstagramURL" />
+            <span asp-validation-for="InstagramURL"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="LinkedInURL_OverrideForStore" asp-input="LinkedInURL" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="LinkedInURL" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="LinkedInURL" />
+            <span asp-validation-for="LinkedInURL"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="ShowBestSellerImage_OverrideForStore" asp-input="ShowBestSellerImage" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="ShowBestSellerImage" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="ShowBestSellerImage" />
+            <span asp-validation-for="ShowBestSellerImage"></span>
+        </div>
+    </div>
+    <nop-nested-setting asp-for="ShowBestSellerImage">
+        <div class="form-group row" id="BestSellerImage">
+            <div class="col-md-3">
+                <nop-override-store-checkbox asp-for="BestSellerImageId_OverrideForStore" asp-input="BestSellerImageId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+                <nop-label asp-for="BestSellerImageId" />
+            </div>
+            <div class="col-md-9">
+                <nop-editor asp-for="BestSellerImageId" />
+                <span asp-validation-for="BestSellerImageId"></span>
+            </div>
+        </div>
+    </nop-nested-setting>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="RemoveDesignedBynopCypher_OverrideForStore" asp-input="RemoveDesignedBynopCypher" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="RemoveDesignedBynopCypher" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="RemoveDesignedBynopCypher" />
+            <span asp-validation-for="RemoveDesignedBynopCypher"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="HidePoweredBynopCommerce_OverrideForStore" asp-input="HidePoweredBynopCommerce" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="HidePoweredBynopCommerce" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="HidePoweredBynopCommerce" />
+            <span asp-validation-for="HidePoweredBynopCommerce"></span>
+        </div>
+    </div>
+</div>

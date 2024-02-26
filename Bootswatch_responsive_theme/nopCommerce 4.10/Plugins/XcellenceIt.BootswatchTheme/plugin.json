@@ -1,0 +1,10 @@
+﻿{
+  "Group": "NopAccelerate Theme",
+  "FriendlyName": "NopAccelerate Bootswatch Theme",
+  "SystemName": "Nop.Plugin.XcellenceIt.BootswatchTheme",
+  "Version": "1.3.0",
+  "SupportedVersions": [ "4.10" ],
+  "Author": " Xcellence-It",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.XcellenceIt.BootswatchTheme.dll"
+}

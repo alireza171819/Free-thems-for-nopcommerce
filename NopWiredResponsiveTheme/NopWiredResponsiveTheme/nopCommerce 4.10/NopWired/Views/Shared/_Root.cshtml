@@ -1,0 +1,39 @@
+﻿@{
+    Layout = "_Root.Head";
+
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Themes/NopWired/Content/js/hoverIntent.js");
+    Html.AddScriptParts(ResourceLocation.Footer, "~/Themes/NopWired/Content/js/bootstrap.min.js");
+}
+
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyStartHtmlTagAfter })
+@await Html.PartialAsync("_Notifications")
+@await Html.PartialAsync("_JavaScriptDisabledWarning")
+@await Html.PartialAsync("_OldInternetExplorerWarning")
+@await Component.InvokeAsync("AdminHeaderLinks")
+
+<div class="master-wrapper-page">
+    <div class="master-wrapper-content">
+        <script asp-location="Footer">
+          AjaxCart.init(false, '.header-links .cart-qty', '.header-links .wishlist-qty', '#flyout-cart');
+        </script>
+
+        @await Html.PartialAsync("_Header")
+        <div class="header-menu">
+            <div class="header-search">
+                <div class="search-box">
+                    @await Component.InvokeAsync("SearchBox")
+                </div>
+            </div>
+            @await Component.InvokeAsync("TopMenu")
+        </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentBefore })
+        <div class="master-wrapper-main">
+            @RenderBody()
+        </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.ContentAfter })
+    </div>
+    @await Component.InvokeAsync("Footer")
+</div>
+@await Component.InvokeAsync("EuCookieLaw")
+@await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.BodyEndHtmlTagBefore })
+

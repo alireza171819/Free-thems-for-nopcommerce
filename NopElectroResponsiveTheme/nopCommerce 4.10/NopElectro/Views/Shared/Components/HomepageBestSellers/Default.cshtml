@@ -1,0 +1,17 @@
+﻿@model IList<ProductOverviewModel>
+@if (Model.Count > 0)
+{
+    <div class="bestsellers">
+        <h2 class="owl-title title">
+            @T("Bestsellers")
+        </h2>
+        <div class="item-grid owl-carousel">
+            @foreach (var item in Model)
+            {
+                <div class="item-box">
+                    @await Html.PartialAsync("_ProductBox", item)
+                </div>
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,16 @@
+﻿<div class="header">
+    @Html.Widget("header")
+    <div class="header-search">
+        <div class="search-box">
+            @Html.Action("SearchBox", "Catalog")
+        </div>
+    </div>
+    <div class="header-logo">
+        @Html.Action("Logo", "Common")       
+    </div>
+    <div class="header-links-wrapper">
+        @Html.Action("HeaderLinks", "Common")
+        @Html.Action("FlyoutShoppingCart", "ShoppingCart")
+    </div>
+    <div class="clear"></div>
+</div>

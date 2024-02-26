@@ -1,0 +1,51 @@
+﻿@model IList<ProductOverviewModel>
+@using Nop.Core
+@inject IWorkContext workContext
+@if (Model.Count > 0)
+{
+    <div class="section-padding section-bg product-grid home-page-product-grid">
+        <div class="section-width">
+            <div class="section-head title">
+                <h2>@T("Homepage.Products")</h2>
+            </div>
+            <div class="item-grid px_featured owl-carousel">
+                @foreach (var item in Model)
+                {
+                    <div class="item-box">
+                        @await Html.PartialAsync("_ProductBox", item)
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+<script asp-location="Footer">
+    $(".px_featured").owlCarousel({
+        autoplay: false,
+        loop: true,
+        rtl: true,
+        responsiveClass: true,
+        autoHeight: true,
+        navigation: true,
+        dots: false,
+        nav: true,
+        responsive: {
+            0: {
+                items: 1
+            },
+
+            600: {
+                items: 2
+            },
+
+            1024: {
+                items: 3
+            },
+
+            1366: {
+                items: 5
+            }
+        }
+    });
+</script>

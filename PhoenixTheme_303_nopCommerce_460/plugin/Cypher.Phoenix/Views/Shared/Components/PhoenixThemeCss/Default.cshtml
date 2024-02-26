@@ -1,0 +1,12 @@
+﻿@model string
+@inject PhoenixThemeSettings  phoenixSettings
+@{
+    NopHtml.AddCssFileParts(Model, "", false);
+}
+
+@if (!string.IsNullOrEmpty(phoenixSettings.CustomHeadStyle))
+{
+    <style type="text/css">
+        @Html.Raw(phoenixSettings.CustomHeadStyle)
+    </style>
+}

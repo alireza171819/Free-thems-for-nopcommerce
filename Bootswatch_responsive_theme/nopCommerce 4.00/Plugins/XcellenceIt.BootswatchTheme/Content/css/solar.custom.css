@@ -1,0 +1,185 @@
+/*!
+*//*
+   Solar Theme 1.0.0
+ * Based on Bootstrap
+*//*! */
+
+
+a:focus,.btn:focus, .btn:active:focus, .btn.active:focus{
+    outline:none;
+}
+.returning-wrapper .form-horizontal .checkbox{
+    line-height:23px;
+}
+.add-info .buttons .add-to-compare-list-button, .add-info .buttons .add-to-wishlist-button {
+  height: 34px;
+}
+.breadcrumb {
+    background-color: transparent;
+    border-radius: 4px;
+    list-style: outside none none;
+    margin-bottom: 18px;
+    padding: 8px 15px;
+    border: none;
+}
+.breadcrumb .active{
+    color:#808080;
+    font-weight:normal;
+}
+.change-password-page #OldPassword, .change-password-page #NewPassword, .change-password-page #ConfirmNewPassword, .payment-info #ExpireMonth, .payment-info #ExpireYear, .payment-info #PurchaseOrderNumber, .payment-info #CreditCardType, .payment-info #CardholderName, .payment-info #CardNumber, .payment-info #CardCode, #opc-payment_info #CreditCardType, #opc-payment_info #CardholderName, #opc-payment_info #CardNumber, #opc-payment_info #CardCode {
+    background-color: #a9bdbd;
+    background-image: none;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #073642;
+    display: block;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    width: 100%;
+}
+.change-password-page #OldPassword:focus, .change-password-page #NewPassword:focus, .change-password-page #ConfirmNewPassword:focus, .change-password-page #OldPassword:focus, .change-password-page #NewPassword:focus, .change-password-page #ConfirmNewPassword:focus, .payment-info #ExpireMonth:focus, .payment-info #ExpireYear:focus, .payment-info #PurchaseOrderNumber:focus, .payment-info #CreditCardType:focus, .payment-info #CardholderName:focus, .payment-info #CardNumber:focus, .payment-info #CardCode:focus, #opc-payment_info #CreditCardType:focus, #opc-payment_info #CardholderName:focus, #opc-payment_info #CardNumber:focus, #opc-payment_info #CardCode:focus {
+    border-color: #66afe9;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+    outline: 0 none;   
+}
+
+.btn-default{
+    background-color: #586e75 !important;
+    border-color: #586e75;
+    color: #ffffff;
+}
+.btn-default:hover{
+    background-color: #425358 !important;
+    border-color: #3e4d52;
+    color: #ffffff;
+}
+.nav-tabs > li > a:hover,.nav-tabs > li > a{
+    border-color: transparent !important;
+}
+.nav-tabs > li > a:hover{
+    border-color: #073642 !important;
+}
+.nav-tabs > li > a {
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    line-height: 1.42857;
+    margin-right: 2px;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+   -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #002b36;
+    border-color: #073642 #073642 transparent !important;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    color: #ffffff;
+    cursor: default;
+}
+.tab-content{
+    border-color: #073642 !important;
+}
+.add-to-wishlist .btn{
+     -moz-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 8px 12px 8px 35px;
+    text-align: center;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    border-color: #474949;
+    color: #ffffff;
+    background:url("/Themes/CoreTheme/Content/images/wishlist-icon.png") no-repeat scroll 8% 53% / 13px 13px #425358 !important;
+}
+.email-a-friend .btn{
+     -moz-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 8px 12px 8px 35px;
+    text-align: center;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    border-color: #474949;
+    color: #ffffff;
+    background:url("/Themes/CoreTheme/Content/images/email-button.png") no-repeat scroll 0 53% #425358 !important;
+}
+.compare-products .btn{
+     -moz-user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    margin-bottom: 0;
+    padding: 8px 12px 8px 35px;
+    text-align: center;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    border-color: #474949;
+    color: #ffffff;
+    background:url("/Themes/CoreTheme/Content/images/compare-button.png") no-repeat scroll 0 53% #425358 !important;
+}
+.add-to-wishlist .btn:hover,.email-a-friend .btn:hover,.compare-products .btn:hover{
+    background-color: #586e75 !important;
+    border-color: transparent;
+    color: #fff;
+}
+.pager li{
+    display:inline-block;
+}
+.pager .current-page span,.pager li a{
+    background-color: #073642;
+    border-color: #073642;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+}
+.pager li a, .pager li span{
+    background-color: transparent;
+    border: 1px solid #073642;
+    color: #2aa198;
+    float: left;
+    line-height: 1.42857;
+    margin-left: -1px;
+    padding: 6px 12px;
+    position: relative;
+    text-decoration: none;
+}
+.pager li a:hover, .pager li span:hover {
+    background-color: #073642;
+    border-color: #073642;
+    color: #2aa198;
+    z-index: 2;
+}
+
+
+@media (max-width: 767px){
+    .header-menu .nav.navbar-nav > li{
+        border-bottom:none;
+    }
+    .header-menu li.dropdown:hover > .dropdown-menu,.header-menu li.dropdown .caret{
+        display:none;
+    }
+}

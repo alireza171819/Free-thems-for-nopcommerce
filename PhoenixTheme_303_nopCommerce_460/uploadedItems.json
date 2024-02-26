@@ -1,0 +1,17 @@
+[
+  // THEME
+  {
+    "Type": "Theme",
+    "SupportedVersion": "4.60",
+    "DirectoryPath": "Theme/Phoenix",
+    "SystemName": "Phoenix"
+  },
+
+  // PLUGIN
+  {
+    "Type": "plugin",
+    "SupportedVersion": "4.60",
+    "DirectoryPath": "plugin/Cypher.Phoenix",
+    "SystemName": "Cypher.Phoenix"
+  }
+]

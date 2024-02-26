@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "_ColumnsOne";
+
+    //page class
+    Html.AppendPageCssClassParts("html-home-page");
+}
+<div class="page home-page">
+    <div class="page-body">
+        <div class="row">
+            <div class="col-sm-18 pull-right">
+                @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_top" })
+                <div class="row" id="homepage-banners">
+                    <div class="col-sm-12">
+                        @await Component.InvokeAsync("TopicBlock", new { systemName = "NopElectro-Home-Banner-1" })
+                    </div>
+                    <div class="col-sm-12">
+                        @await Component.InvokeAsync("TopicBlock", new { systemName = "NopElectro-Home-Banner-2" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 pull-left">
+                <div id="homepage-side-info">
+                    @await Component.InvokeAsync("TopicBlock", new { systemName = "NopElectro-Home-Column" })
+                </div>
+            </div>
+        </div>
+        @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_categories" })
+        @await Component.InvokeAsync("HomepageCategories")
+
+        @await Component.InvokeAsync("TopicBlock", new { systemName = "HomePageText" })
+        @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_products" })
+        @await Component.InvokeAsync("HomepageProducts")
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_best_sellers" })
+        @await Component.InvokeAsync("HomepageBestSellers")
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_news" })
+        @await Component.InvokeAsync("HomepageNews")
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_before_poll" })
+        @await Component.InvokeAsync("HomepagePolls")
+        @await Component.InvokeAsync("Widget", new { widgetZone = "home_page_bottom" })
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(window).load(function () {
+        function handleOwlCarouselControl(element, show) {
+            if (show) {
+                $(element).find('.owl-controls').show();
+            }
+            else {
+                $(element).find('.owl-controls').hide();
+            }
+        }
+
+        var owl0 = $(".home-page .owl-carousel");
+        owl0.on('initialized.owl.carousel', function (event) {
+            handleOwlCarouselControl(event.target, event.page.count > 1);
+        });
+        owl0.on('resized.owl.carousel', function (event) {
+            handleOwlCarouselControl(event.target, event.page.count > 1);
+        });
+        owl0.owlCarousel({
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                900: {
+                    items: 3
+                },
+                1000: {
+                    items: 5
+                }
+            },
+            nav: true,
+        });
+    });
+</script>
+

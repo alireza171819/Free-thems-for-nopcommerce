@@ -1,0 +1,58 @@
+﻿@model HeaderLinksModel
+@using System.Text.Encodings.Web
+<div class="header-links header-top-right">
+    <ul>
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderLinksBefore })
+        @await Component.InvokeAsync("AdminHeaderLinks")
+        @if (Model.IsAuthenticated)
+        {
+            <li class="my-account"><a href="@Url.RouteUrl("CustomerInfo")"><span><i class="fa fa-user-o" aria-hidden="true"></i></span></a></li>
+        }
+        else
+        {
+            <li class="register"><a href="@Url.RouteUrl("Register")"><span><i class="fa fa-user-o" aria-hidden="true"></i></span></a></li>
+        }
+        @if (Model.WishlistEnabled)
+        {
+            <li class="my-wishlist">
+                <a href="@Url.RouteUrl("Wishlist")">
+                    <span class="wishlist-label"><i class="fa fa-heart-o" aria-hidden="true"></i></span>
+                    <span class="wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</span>
+                </a>
+            </li>
+        }
+        @if (Model.AllowPrivateMessages)
+        {
+            <li>
+                <a href="@Url.RouteUrl("PrivateMessages", new { tab = "" })">
+                    <span class="inbox-label"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                    <span class="inbox-unread">@Model.UnreadPrivateMessages</span>
+                </a>
+            </li>
+        }
+        @if (Model.IsAuthenticated)
+        {
+            <li class="logout"><a href="@Url.RouteUrl("Logout")"><span><i class="fa fa-unlock-alt" aria-hidden="true"></i></span></a></li>
+        }
+        else
+        {
+            <li class="login"><a href="@Url.RouteUrl("Login")"><span><i class="fa fa-lock" aria-hidden="true"></i></span></a></li>
+        }
+        @if (Model.ShoppingCartEnabled)
+        {
+            <li>
+                @await Component.InvokeAsync("FlyoutShoppingCart")
+            </li>
+        }
+        @await Component.InvokeAsync("Widget", new { widgetZone = PublicWidgetZones.HeaderLinksAfter })
+    </ul>
+    @if (Model.AllowPrivateMessages && !string.IsNullOrEmpty(Model.AlertMessage))
+    {
+        //new private message notification
+        <script>
+            $(document).ready(function () {
+                displayPopupNotification('@Html.Raw(JavaScriptEncoder.Default.Encode(Model.AlertMessage))', 'success', false);
+            });
+        </script>
+    }
+</div>
